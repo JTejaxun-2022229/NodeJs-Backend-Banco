@@ -48,6 +48,10 @@ const UserSchema = mongoose.Schema({
     role:{
         type:String,
         default: 'USER_ROLE'
+    },
+    state:{
+        type:Boolean,
+        default:true,
     }
 })
 

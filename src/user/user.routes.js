@@ -30,4 +30,13 @@ router.get(
     getUserEmail
 );
 
+router.delete(
+  '/',
+  [
+    check('email','Do you want to delete this email?').isEmail(),
+    check('password','Please enter the correct password to confirm the action'),
+  ],
+  deleteUser
+)
+
 export default router;

@@ -40,3 +40,33 @@ export const getUserEmail = async (req, res) => {
         });
     }
 };
+
+export const userDelete = async(req, res) => {
+    const{email,password} = req.body;
+    const user = await User.findOne({email});
+
+    if(!user){
+        return res.status(400).json({
+            msg: 'The email you entered does not exist in the database'
+        });
+    }
+
+    const salt = bcryptjs.genSaltSync();
+    const validPassword = bcryptjs.compareSync(password, user.password);
+    
+
+    if(!validPassword){
+        return res.status(400).json({
+            msg: 'Clave incorrecta'
+        });
+    }
+
+    user.state=false;
+
+    //const user = await User.findByIdAndUpdate()
+
+    res.status(200).json({
+        msg: 'This user is eliminated',
+        user
+    });
+}
