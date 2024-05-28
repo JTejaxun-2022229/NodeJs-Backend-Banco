@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
         type:String,
         required:['name of user']
     },
-    userName:{
+    username:{
         type:String,
         required:['username']
     },
@@ -47,8 +47,7 @@ const UserSchema = mongoose.Schema({
     },
     role:{
         type:String,
-        required:['Indicate whether the user is an administrator or a client'],
-        default: ['USER_ROLE']
+        default: 'USER_ROLE'
     }
 })
 
