@@ -6,8 +6,14 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
 
+
+// si van a usar un path para una entidad que sea de esta manera
+//  '/quetzalito/v1/{su entidad en singular}'
+
 class Server {
+
     constructor() {
+
         this.app = express()
         this.port = process.env.PORT
 
@@ -17,10 +23,12 @@ class Server {
     }
 
     async conectarDB() {
+
         await dbConnection()
     }
 
     middlewares() {
+
         this.app.use(express.urlencoded({ extended: true }))
         this.app.use(cors())
         this.app.use(express.json())
@@ -29,6 +37,7 @@ class Server {
     }
 
     routes() {
+        
     }
 
     listen() {
