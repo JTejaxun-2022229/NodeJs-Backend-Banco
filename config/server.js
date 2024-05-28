@@ -10,12 +10,16 @@ import { dbConnection } from './mongo.js'
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
 
+import userRoute from '../src/user/user.routes.js';
+
 class Server {
 
     constructor() {
 
         this.app = express()
         this.port = process.env.PORT
+
+        this.userPath = '/quetzalito/v1/user';
 
         this.middlewares()
         this.conectarDB()
@@ -37,7 +41,7 @@ class Server {
     }
 
     routes() {
-        
+        this.app.use(this.userPath,userRoute)
     }
 
     listen() {
