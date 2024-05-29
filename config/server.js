@@ -1,10 +1,12 @@
 'use strict'
 
+import transferRoutes from '../src/transfer/transfer.routes.js'
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
+import Transfer from '../src/transfer/transfer.model.js'
 
 
 // si van a usar un path para una entidad que sea de esta manera
