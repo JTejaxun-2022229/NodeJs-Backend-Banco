@@ -16,7 +16,7 @@ class Server {
 
         this.app = express()
         this.port = process.env.PORT
-
+        this.transferPath = '/quetzalito/v1/transfer';
         this.middlewares()
         this.conectarDB()
         this.routes()
@@ -37,7 +37,7 @@ class Server {
     }
 
     routes() {
-        
+        this.app.use(this.transferPath, transferRoutes);
     }
 
     listen() {
