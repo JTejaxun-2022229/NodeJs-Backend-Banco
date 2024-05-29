@@ -5,9 +5,9 @@ import {response} from 'express'
 export const userPost = async (req, res) => {
     console.log('userPost');
 
-    const {name,username,account,DPI,address,phone,email,password,workPlace,salary,balance} = req.body;
+    const {name,username,DPI,address,phone,email,password,workPlace,salary,balance} = req.body;
     const role = 'USER_ROLE';
-    const user = new User({name,username,account,DPI,address,phone,email,password,workPlace,salary,balance,role});
+    const user = new User({name,username,DPI,address,phone,email,password,workPlace,salary,balance,role});
 
     const salt =bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password,salt);
@@ -18,6 +18,26 @@ export const userPost = async (req, res) => {
         user
     })
 }
+
+export const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({});
+        
+        if (users.length === 0) {
+            return res.status(404).json({ error: 'No users found' });
+        }
+
+        res.status(200).json({
+            users
+        });
+
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+};
 
 export const getUserEmail = async (req, res) => {
     const { correo } = req.query;
