@@ -10,7 +10,7 @@ const UserSchema = mongoose.Schema({
         required:['username']
     },
     account:{
-        type:String,
+        type:Number,
         required:['number of account']
     },
     DPI:{
