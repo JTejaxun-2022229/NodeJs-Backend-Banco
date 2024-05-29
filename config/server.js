@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
 import adminRoutes from '../src/admin/admin.routes.js';
+import favoriteRoutes from '../src/favorite/favorite.routes.js';
 import Admin from '../src/admin/admin.model.js';
 import bcryptjs from "bcryptjs";
 
@@ -21,6 +22,7 @@ class Server {
         this.app = express()
         this.port = process.env.PORT
         this.adminPath = '/quetzalito/v1/admin';
+        this.favoritePath = '/quetzalito/v1/favorite';
         this.middlewares()
         this.conectarDB()
         this.createAdminIfNotExists() /* impornante llamarlo acá para que se ejecute el metodo al iniciar el proyecto*/
@@ -43,6 +45,7 @@ class Server {
 
     routes() {
         this.app.use(this.adminPath, adminRoutes);
+        this.app.use(this.favoritePath, favoriteRoutes);
     }
 
     /* Metodo para crear un admin al iniciar el proyecto*/

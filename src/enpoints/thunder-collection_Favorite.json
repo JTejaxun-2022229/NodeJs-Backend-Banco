@@ -1,0 +1,81 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Favorite",
+    "collectionId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+    "dateExported": "2024-05-29T06:52:29.252Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "1336e334-ef5d-4aab-8e82-65c663a73f21",
+            "colId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+            "containerId": "",
+            "name": "Post Favorite",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/favorite",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-29T06:47:43.631Z",
+            "modified": "2024-05-29T06:50:24.274Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"idUser\": \"45455\",\n  \"noAccount\": \"4545445\",\n  \"DPI\": \"4545445\",\n  \"alias\": \"pablito\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "8206f855-c963-42f1-9a7c-d9b8f813e8f2",
+            "colId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+            "containerId": "",
+            "name": "Get Favorites",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/favorite",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-29T06:47:52.081Z",
+            "modified": "2024-05-29T06:51:15.658Z",
+            "headers": []
+        },
+        {
+            "_id": "323fff61-cb26-425d-8f96-d2d114a7c80f",
+            "colId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+            "containerId": "",
+            "name": "Get Favorite By Id",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/favorite/6656d06742d07da5213a111e",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-29T06:48:00.624Z",
+            "modified": "2024-05-29T06:51:44.891Z",
+            "headers": []
+        },
+        {
+            "_id": "fcbbcfc4-53a5-4193-966c-9adf17198435",
+            "colId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+            "containerId": "",
+            "name": "Put Favorite",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/favorite/6656d06742d07da5213a111e",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-05-29T06:48:10.772Z",
+            "modified": "2024-05-29T06:52:03.586Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"idUser\": \"45455\",\n  \"noAccount\": \"4545445\",\n  \"DPI\": \"4545445\",\n  \"alias\": \"pablitoXD2\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ce2ce29f-0236-4bb2-9add-c6e90e77a8c4",
+            "colId": "f4d1857a-507d-4682-b6ea-6275eac9e4af",
+            "containerId": "",
+            "name": "Delete Favorite",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/favorite/6656d05342d07da5213a1118",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-05-29T06:48:17.599Z",
+            "modified": "2024-05-29T06:52:18.222Z",
+            "headers": []
+        }
+    ],
+    "ref": "DwWR8N8-4QdM2X8jL6EXdeYu5T2j9NHm_4hO1bfL22G91oaLxF-a9t64g8MZj-N-2tyd9tSicLqdrq2JVNUN_Q"
+}
