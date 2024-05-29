@@ -50,6 +50,7 @@ export const getUserEmail = async (req, res) => {
         }
  
         res.status(200).json({
+            user,
             role: user.role,
             idUser: user._id
         });
