@@ -7,7 +7,7 @@ export const generarJWT = (uid = ' ',email = ' ') => {
 
         jwt.sign(
             playload,
-            process.env.SECRETORPRIVATEKEY,{expiresIn: '5h'},
+            process.env.SECRETPRIVATEKEY,{expiresIn: '5h'},
             (err,token) =>{
                 err ? (console.log(err), reject('Could not generate a token')) : resolve(token);
             }
