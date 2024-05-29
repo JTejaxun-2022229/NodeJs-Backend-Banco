@@ -4,6 +4,7 @@ import { check } from 'express-validator';
 import { getUsers, getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
 import { existeDPI, existeEmail } from '../helpers/db-validators.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
+import { validarJWT } from '../middlewares/validar-jwt.js';
 
 
 const router= Router();
@@ -30,12 +31,12 @@ router.post(
  
 
 router.get(
-  '/',[],getUsers
+  '/',[validarJWT,],getUsers
 )
 
 router.get(
     "/email/",
-    [],
+    [validarJWT,],
     getUserEmail
 );
 
@@ -53,6 +54,7 @@ router.put(
     check('salary', 'The salary cannot be empty and must be numerical').optional().isNumeric(),
     check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric(),
     validarCampos,
+    validarJWT,
   ],
   updateUser
 );
@@ -63,6 +65,7 @@ router.delete(
     check('email','Do you want to delete this email?').isEmail(),
     check('password','Please enter the correct password to confirm the action'),
     validarCampos,
+    validarJWT,
   ],
   deleteUser
 )
