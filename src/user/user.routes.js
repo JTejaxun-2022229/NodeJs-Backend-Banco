@@ -22,7 +22,7 @@ router.post(
       check('email').custom(existeEmail),
       check('password','The password cannot be empty').not().isEmpty().isLength({min:6}),
       check('workPlace','The workPlace cannot be empty').not().isEmpty(),
-      check('salary','The salary must be a number').isNumeric().not().isEmpty(),
+      check('salary', 'The salary must be a number and at least 100').isFloat({ min: 100 }).not().isEmpty(),
       check('balance','The balance must be a number').isNumeric().not().isEmpty(),
       validarCampos      
   ], 
@@ -51,7 +51,7 @@ router.put(
     check('phone', 'The phone cannot be empty and must be numeric').optional().isNumeric().isLength({ min: 8 }),
     check('newPassword', 'The new password must be at least 6 characters').optional().isLength({ min: 6 }),
     check('workPlace', 'The workplace cannot be empty').optional().notEmpty(),
-    check('salary', 'The salary cannot be empty and must be numerical').optional().isNumeric(),
+    check('salary', 'The salary must be a number and at least 100').isFloat({ min: 100 }).not().isEmpty(),
     check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric(),
     validarCampos,
     validarJWT,
