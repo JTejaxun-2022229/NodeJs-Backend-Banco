@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import { check } from 'express-validator';
 
-import { getUserEmail, userPost } from './user.controller.js';
+import { getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
 
 
 const router= Router();
@@ -11,7 +11,7 @@ router.post(
   [
       check("name","The name cannot be empty").not().isEmpty(),
       check('username','The username cannot be empty').not().isEmpty(),
-      check('account','The account cannot be empty').not().isEmpty(),
+      check('account','The account cannot be empty').not().isNumeric(),
       check('DPI','The DPI cannot be empty').not().isEmpty().isLength({min:13}),
       check('address','The address cannot be empty').not().isEmpty(),
       check('phone','The phone cannot be empty').not().isNumeric().isLength({min:8}),
@@ -25,9 +25,26 @@ router.post(
 );  
 
 router.get(
-    "/email/:correo",
+    "/email/",
     [],
     getUserEmail
+);
+
+router.put(
+  "/updateUser",
+  [
+    check('email', 'The email is mandatory and must be a valid email').isEmail(),
+    check('currentPassword', 'The current password is required and must be at least 6 characters').isLength({ min: 6 }),
+    check("name", "The name cannot be empty").optional().notEmpty(),
+    check('username', 'The username cannot be empty').optional().notEmpty(),
+    check('address', 'The address cannot be empty').optional().notEmpty(),
+    check('phone', 'The phone cannot be empty and must be numeric').optional().isNumeric().isLength({ min: 8 }),
+    check('newPassword', 'The new password must be at least 6 characters').optional().isLength({ min: 6 }),
+    check('workPlace', 'The workplace cannot be empty').optional().notEmpty(),
+    check('salary', 'The salary cannot be empty and must be numerical').optional().isNumeric(),
+    check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric()
+  ],
+  updateUser
 );
 
 router.delete(

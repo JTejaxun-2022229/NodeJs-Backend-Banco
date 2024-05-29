@@ -20,7 +20,7 @@ export const userPost = async (req, res) => {
 }
 
 export const getUserEmail = async (req, res) => {
-    const { correo } = req.params;
+    const { correo } = req.query;
  
     try {
         const user = await User.findOne({ email: correo });
@@ -41,7 +41,46 @@ export const getUserEmail = async (req, res) => {
     }
 };
 
-export const userDelete = async(req, res) => {
+export const updateUser = async (req, res) => {
+    const { email, currentPassword, name, username, address, phone, newPassword, workPlace, salary, balance } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                msg: 'El correo electrónico que ingresaste no existe en la base de datos'
+            });
+        }
+
+        const validPassword = bcryptjs.compareSync(currentPassword, user.password);
+        if (!validPassword) {
+            return res.status(400).json({
+                msg: 'Clave incorrecta'
+            });
+        }
+
+        const updateFields = { name, username, address, phone, workPlace, salary, balance };
+
+        if (newPassword) {
+            const salt = bcryptjs.genSaltSync();
+            updateFields.password = bcryptjs.hashSync(newPassword, salt);
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true });
+
+        res.status(200).json({
+            msg: 'Usuario actualizado con éxito',
+            user: updatedUser
+        });
+    } catch (error) {
+        console.error('Error al actualizar el usuario:', error);
+        res.status(500).json({
+            msg: 'Error interno del servidor'
+        });
+    }
+};
+
+export const deleteUser = async(req, res) => {
     const{email,password} = req.body;
     const user = await User.findOne({email});
 
@@ -63,10 +102,10 @@ export const userDelete = async(req, res) => {
 
     user.state=false;
 
-    //const user = await User.findByIdAndUpdate()
+    const usuario = await User.findByIdAndUpdate(user.id, user, { new: true });
 
     res.status(200).json({
         msg: 'This user is eliminated',
-        user
+        usuario
     });
 }
