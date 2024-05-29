@@ -1,27 +1,25 @@
 import User from '../user/user.model.js';
 
 export const existeEmail = async (email = '') => {
-    console.log('existeEmail',email)
+    console.log('existeEmail', email);
     try {
         const user = await User.findOne({ email, state: true });
         if (user) {
-            throw new Error(`El usuario con el correo electrónico ${email} ya existe`);
-            
+            throw new Error(`The user with email ${email} already exists`);
         }
     } catch (error) {
-        throw new Error(`Error al verificar la existencia del correo electrónico: ${error.message}`);
+        throw new Error(`Error verifying email existence: ${error.message}`);
     }
 };
 
 export const existeDPI = async (DPI = '') => {
-    console.log('existeDPI',DPI)
+    console.log('existeDPI', DPI);
     try {
         const user = await User.findOne({ DPI, state: true });
         if (user) {
-            throw new Error(`El usuario con el DPI: ${DPI} ya existe`);
-            
+            throw new Error(`The user with DPI ${DPI} already exists`);
         }
     } catch (error) {
-        throw new Error(`Error al verificar la existencia del DPI ${error.message}`);
+        throw new Error(`Error verifying DPI existence: ${error.message}`);
     }
 };
