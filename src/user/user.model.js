@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema({
     },
     account:{
         type:Number,
-        required:['number of account']
+        default: () => Math.floor(Math.random() * 1e10),
     },
     DPI:{
         type:String,
@@ -27,7 +27,8 @@ const UserSchema = mongoose.Schema({
     },
     email:{
         type:String,
-        required:['The email of user']
+        required:['The email of user'],
+        unique: true
     },
     password:{
         type:String,
