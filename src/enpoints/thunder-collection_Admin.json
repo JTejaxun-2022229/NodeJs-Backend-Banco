@@ -1,0 +1,93 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Admin",
+    "collectionId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+    "dateExported": "2024-05-29T06:16:11.527Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "d3f9eeee-02a0-4e2a-9780-f4af90d22c57",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Post Admin",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-29T06:06:24.892Z",
+            "modified": "2024-05-29T06:13:50.177Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"admin3@gmail.com\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "26279cd5-c237-4b41-a529-c8e8c25355e3",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Get Admin",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-29T06:06:30.587Z",
+            "modified": "2024-05-29T06:13:40.869Z",
+            "headers": []
+        },
+        {
+            "_id": "b3ffca7f-c902-4b75-9e0c-ccdffac46a01",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Get admin by id",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin/6656c79bc7cc1cca05e16be7",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-29T06:06:38.373Z",
+            "modified": "2024-05-29T06:14:11.436Z",
+            "headers": []
+        },
+        {
+            "_id": "0d9291e7-b774-4882-863d-73299250a576",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Get admin by email",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin/email/admin2@gmail.com",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-05-29T06:06:45.846Z",
+            "modified": "2024-05-29T06:14:22.040Z",
+            "headers": []
+        },
+        {
+            "_id": "bf71446f-5a1d-4f8e-b1b6-49704e778081",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Put Admin",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin/6656c79ec7cc1cca05e16bea",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-05-29T06:07:06.602Z",
+            "modified": "2024-05-29T06:15:26.873Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"adminPut@gmail.com\",\n  \"password\": \"1234567\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2cb7c3e8-27a8-4286-97a3-461f98a35637",
+            "colId": "8b58baca-0940-4d2d-8d7e-07d46d25c69a",
+            "containerId": "",
+            "name": "Delete Admin",
+            "url": "http://127.0.0.1:4000/quetzalito/v1/admin/6656c79ec7cc1cca05e16bea",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-05-29T06:07:13.126Z",
+            "modified": "2024-05-29T06:15:45.740Z",
+            "headers": []
+        }
+    ],
+    "ref": "epNGCTZmqtvXLp3tfUVWXPjiBOV9mNOen_rIAebDnkUpWTtgZILYRcJK_fw6su95ij4P_808zQ9FhBfkAkSGdw"
+}

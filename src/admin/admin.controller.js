@@ -2,6 +2,27 @@ import { response, request } from "express";
 import bcryptjs from "bcryptjs";
 import Admin from "./admin.model.js";
 
+export const postAdmin = async (req, res) => {
+    const { email, password } = req.body;
+    const admin = new Admin({ email, password });
+
+    try {
+        const salt = bcryptjs.genSaltSync();
+        admin.password = bcryptjs.hashSync(password, salt);
+
+        await admin.save();
+
+        res.status(201).json({
+            admin
+        });
+    } catch (error) {
+        console.error('Error creating admin:', error);
+        res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+};
+
 export const getAdmin = async (req = request, res = response) => {
     const { start, end } = req.query;
     const query = { status: true };
@@ -20,28 +41,6 @@ export const getAdmin = async (req = request, res = response) => {
         });
     } catch (error) {
         console.error('Error fetching admins:', error);
-        res.status(500).json({
-            error: 'Internal server error'
-        });
-    }
-};
-
-
-export const postAdmin = async (req, res) => {
-    const { email, password } = req.body;
-    const admin = new Admin({ email, password });
-
-    try {
-        const salt = bcryptjs.genSaltSync();
-        admin.password = bcryptjs.hashSync(password, salt);
-
-        await admin.save();
-
-        res.status(201).json({
-            admin
-        });
-    } catch (error) {
-        console.error('Error creating admin:', error);
         res.status(500).json({
             error: 'Internal server error'
         });

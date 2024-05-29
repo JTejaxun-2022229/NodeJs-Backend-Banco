@@ -5,6 +5,10 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
+import adminRoutes from '../src/admin/admin.routes.js';
+import Admin from '../src/admin/admin.model.js';
+import bcryptjs from "bcryptjs";
+
 
 
 // si van a usar un path para una entidad que sea de esta manera
@@ -16,9 +20,10 @@ class Server {
 
         this.app = express()
         this.port = process.env.PORT
-
+        this.adminPath = '/quetzalito/v1/admin';
         this.middlewares()
         this.conectarDB()
+        this.createAdminIfNotExists() /* impornante llamarlo acá para que se ejecute el metodo al iniciar el proyecto*/
         this.routes()
     }
 
@@ -37,7 +42,32 @@ class Server {
     }
 
     routes() {
-        
+        this.app.use(this.adminPath, adminRoutes);
+    }
+
+    /* Metodo para crear un admin al iniciar el proyecto*/
+    async createAdminIfNotExists() {
+        try {
+            const adminEmail = 'ADMINB@gmail.com'
+            const adminPassword = 'ADMINB'
+
+            let admin = await Admin.findOne({ email: adminEmail })
+
+            if (!admin) {
+                const AdminCreate = {
+                    email: adminEmail,
+                    password: adminPassword,
+                };
+
+                const saltAdmin = bcryptjs.genSaltSync();
+                AdminCreate.password = bcryptjs.hashSync(AdminCreate.password, saltAdmin);
+
+                const adminDefault = new Admin(AdminCreate);
+                await adminDefault.save();
+            }
+        } catch (error) {
+            console.error('Error creating admin:', error)
+        }
     }
 
     listen() {
