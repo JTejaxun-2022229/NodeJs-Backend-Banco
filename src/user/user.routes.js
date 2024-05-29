@@ -1,7 +1,9 @@
 import {Router} from 'express';
 import { check } from 'express-validator';
 
-import { getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
+import { getUsers, getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
+import { existeEmail } from '../helpers/db-validators.js';
+import { validarCampos } from '../middlewares/validar-campos.js';
 
 
 const router= Router();
@@ -11,18 +13,24 @@ router.post(
   [
       check("name","The name cannot be empty").not().isEmpty(),
       check('username','The username cannot be empty').not().isEmpty(),
-      check('account','The account cannot be empty').not().isNumeric(),
       check('DPI','The DPI cannot be empty').not().isEmpty().isLength({min:13}),
       check('address','The address cannot be empty').not().isEmpty(),
-      check('phone','The phone cannot be empty').not().isNumeric().isLength({min:8}),
-      check('email','The email cannot be empty').isEmail(),
-      check('password','The password cannot be empty').not().isLength({min:6}),
+      check('phone','The phone must be numeric and have at least 8 characters').isNumeric().isLength({min:8}),
+      check('email','The email must be a valid email').isEmail(),
+      check('email').custom(existeEmail),
+      check('password','The password cannot be empty').not().isEmpty().isLength({min:6}),
       check('workPlace','The workPlace cannot be empty').not().isEmpty(),
-      check('salary','The salary cannot be empty').not().isNumeric(),
-      check('balance','The balance cannot be empty').not().isNumeric()
-      
-  ], userPost
-);  
+      check('salary','The salary must be a number').isNumeric().not().isEmpty(),
+      check('balance','The balance must be a number').isNumeric().not().isEmpty(),
+      validarCampos      
+  ], 
+  userPost
+);
+ 
+
+router.get(
+  '/',[],getUsers
+)
 
 router.get(
     "/email/",
@@ -42,7 +50,8 @@ router.put(
     check('newPassword', 'The new password must be at least 6 characters').optional().isLength({ min: 6 }),
     check('workPlace', 'The workplace cannot be empty').optional().notEmpty(),
     check('salary', 'The salary cannot be empty and must be numerical').optional().isNumeric(),
-    check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric()
+    check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric(),
+    validarCampos,
   ],
   updateUser
 );
@@ -52,6 +61,7 @@ router.delete(
   [
     check('email','Do you want to delete this email?').isEmail(),
     check('password','Please enter the correct password to confirm the action'),
+    validarCampos,
   ],
   deleteUser
 )
