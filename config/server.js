@@ -5,6 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
+import creditRouter from "../src/credit/credit.routes.js"
 
 
 // si van a usar un path para una entidad que sea de esta manera
@@ -16,6 +17,7 @@ class Server {
 
         this.app = express()
         this.port = process.env.PORT
+        this.creditPath = '/quetzalito/v1/credit'
 
         this.middlewares()
         this.conectarDB()
@@ -37,7 +39,7 @@ class Server {
     }
 
     routes() {
-        
+        this.app.use(this.creditPath, creditRouter)
     }
 
     listen() {
