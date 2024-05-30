@@ -1,16 +1,16 @@
 import bcryptjs from 'bcryptjs';
 import User from './user.model.js'
-import {response} from 'express'
+import { response } from 'express'
 
 export const userPost = async (req, res) => {
     console.log('userPost');
 
-    const {name,username,DPI,address,phone,email,password,workPlace,salary,balance} = req.body;
+    const { name, username, DPI, address, phone, email, password, workPlace, salary, balance } = req.body;
     const role = 'USER_ROLE';
-    const user = new User({name,username,DPI,address,phone,email,password,workPlace,salary,balance,role});
+    const user = new User({ name, username, DPI, address, phone, email, password, workPlace, salary, balance, role });
 
-    const salt =bcryptjs.genSaltSync();
-    user.password = bcryptjs.hashSync(password,salt);
+    const salt = bcryptjs.genSaltSync();
+    user.password = bcryptjs.hashSync(password, salt);
 
     await user.save();
 
@@ -22,7 +22,7 @@ export const userPost = async (req, res) => {
 export const getUsers = async (req, res) => {
     try {
         const users = await User.find({});
-        
+
         if (users.length === 0) {
             return res.status(404).json({ error: 'No users found' });
         }
@@ -41,14 +41,14 @@ export const getUsers = async (req, res) => {
 
 export const getUserEmail = async (req, res) => {
     const { correo } = req.query;
- 
+
     try {
         const user = await User.findOne({ email: correo });
- 
+
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
- 
+
         res.status(200).json({
             user,
             role: user.role,
@@ -101,11 +101,11 @@ export const updateUser = async (req, res) => {
     }
 };
 
-export const deleteUser = async(req, res) => {
-    const{email,password} = req.body;
-    const user = await User.findOne({email});
+export const deleteUser = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-    if(!user){
+    if (!user) {
         return res.status(400).json({
             msg: 'The email you entered does not exist in the database'
         });
@@ -113,15 +113,15 @@ export const deleteUser = async(req, res) => {
 
     const salt = bcryptjs.genSaltSync();
     const validPassword = bcryptjs.compareSync(password, user.password);
-    
 
-    if(!validPassword){
+
+    if (!validPassword) {
         return res.status(400).json({
             msg: 'Clave incorrecta'
         });
     }
 
-    user.state=false;
+    user.state = false;
 
     const usuario = await User.findByIdAndUpdate(user.id, user, { new: true });
 
