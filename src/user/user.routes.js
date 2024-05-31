@@ -1,6 +1,5 @@
 import {Router} from 'express';
 import { check } from 'express-validator';
-
 import { getUsers, getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
 import { existeDPI, existeEmail } from '../helpers/db-validators.js';
 import { validarCampos } from '../middlewares/validar-campos.js';

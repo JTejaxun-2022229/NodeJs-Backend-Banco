@@ -11,6 +11,7 @@ import { dbConnection } from './mongo.js'
 //  '/quetzalito/v1/{su entidad en singular}'
 
 import userRoute from '../src/user/user.routes.js';
+import authRoute from '../src/auth/auth.routes.js';
 
 class Server {
 
@@ -20,6 +21,7 @@ class Server {
         this.port = process.env.PORT
 
         this.userPath = '/quetzalito/v1/user';
+        this.authPath = '/quetzalito/v1/auth';
 
         this.middlewares()
         this.conectarDB()
@@ -41,7 +43,8 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.userPath,userRoute)
+        this.app.use(this.userPath, userRoute)
+        this.app.use(this.authPath, authRoute)
     }
 
     listen() {
