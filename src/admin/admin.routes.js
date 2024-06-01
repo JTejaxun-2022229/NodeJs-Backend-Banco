@@ -11,7 +11,7 @@ import {
 import {
     existingAdminEmail,
     existeAdminById,
-} from "../helpers/db-validator.js";
+} from "../helpers/db-validators.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 
 const router = Router();

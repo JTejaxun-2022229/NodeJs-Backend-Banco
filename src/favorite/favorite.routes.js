@@ -15,11 +15,12 @@ import { validarCampos } from "../middlewares/validar-campos.js";
 
 const router = Router();
 
-// Post Favorite
+/* Post Favorite */
 router.post(
     "/",
     [
         check("idUser", "The idUser is required").not().isEmpty(),
+        check("idUser", "this is not a ID for idUser").isMongoId(),
         check("noAccount", "The noAccount is required").not().isEmpty(),
         check("DPI", "The DPI is required").not().isEmpty(),
         check("alias", "The alias is required").not().isEmpty(),

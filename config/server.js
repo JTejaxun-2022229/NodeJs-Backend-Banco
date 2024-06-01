@@ -4,6 +4,13 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
+import adminRoutes from '../src/admin/admin.routes.js';
+import userRoutes from '../src/user/user.routes.js';
+import authRoutes from '../src/auth/auth.routes.js';
+import favoriteRoutes from '../src/favorite/favorite.routes.js';
+import Admin from '../src/admin/admin.model.js';
+import User from '../src/user/user.model.js';
+import bcryptjs from "bcryptjs";
 import { dbConnection } from './mongo.js'
 
 
@@ -22,10 +29,14 @@ class Server {
 
         this.userPath = '/quetzalito/v1/user';
         this.authPath = '/quetzalito/v1/auth';
+        this.adminPath = '/quetzalito/v1/admin';
+        this.favoritePath = '/quetzalito/v1/favorite';
 
         this.middlewares()
         this.conectarDB()
         this.routes()
+        this.createAdminIfNotExists()
+        this.createUserIfNotExists()
     }
 
     async conectarDB() {
@@ -43,8 +54,66 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.userPath, userRoute)
-        this.app.use(this.authPath, authRoute)
+        this.app.use(this.userPath, userRoutes)
+        this.app.use(this.authPath, authRoutes)
+        this.app.use(this.adminPath, adminRoutes)
+        this.app.use(this.favoritePath, favoriteRoutes)
+    }
+
+    async createAdminIfNotExists() {
+        try {
+            const adminEmail = 'ADMINB@gmail.com'
+            const adminPassword = 'ADMINB'
+
+            let admin = await Admin.findOne({ email: adminEmail })
+
+            if (!admin) {
+                const AdminCreate = {
+                    email: adminEmail,
+                    password: adminPassword,
+                };
+
+                const saltAdmin = bcryptjs.genSaltSync();
+                AdminCreate.password = bcryptjs.hashSync(AdminCreate.password, saltAdmin);
+
+                const adminDefault = new Admin(AdminCreate);
+                await adminDefault.save();
+            }
+        } catch (error) {
+            console.error('Error creating admin:', error)
+        }
+    }
+
+    async createUserIfNotExists() {
+        try {
+            const userEmail = 'user@gmail.com'
+            const userPassword = '123456'
+
+            let user = await User.findOne({ email: userEmail })
+
+            if (!user) {
+                const UserCreate = {
+                    name: 'name1',
+                    username: 'username1',
+                    DPI: '12345678910',
+                    address: 'Guatemala',
+                    phone: '12345678',
+                    email: userEmail,
+                    password: userPassword,
+                    workPlace: 'Kinal',
+                    salary: '1800',
+                    balance: '10000',
+                };
+
+                const saltUser = bcryptjs.genSaltSync();
+                UserCreate.password = bcryptjs.hashSync(UserCreate.password, saltUser);
+
+                const userDefault = new User(UserCreate);
+                await userDefault.save();
+            }
+        } catch (error) {
+            console.error('Error creating User:', error)
+        }
     }
 
     listen() {
