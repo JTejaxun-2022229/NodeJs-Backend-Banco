@@ -12,16 +12,16 @@ export const login = async (req, res) => {
 
         if (!user && !admin) {
             return res.status(400).json({
-                msg: 'Incorrect credentials'
+                msg: 'Credenciales incorrectas'
             });
         }
 
         const account = user || admin;
         const accountType = user ? 'user' : 'admin';
 
-        if (!account.state) {
+        if (!account.status) {
             return res.status(400).json({
-                msg: 'This account is not registered'
+                msg: 'Esta cuenta no está registrada'
             });
         }
 
@@ -29,14 +29,14 @@ export const login = async (req, res) => {
 
         if (!validPassword) {
             return res.status(400).json({
-                msg: 'Incorrect password'
+                msg: 'Contraseña incorrecta'
             });
         }
 
         const token = await generarJWT(account.id, account.email, accountType);
 
         res.status(200).json({
-            msg: 'Access granted',
+            msg: 'Acceso concedido',
             account,
             token
         });
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
     } catch (e) {
         console.log(e);
         res.status(500).json({
-            msg: 'Contact administrator'
+            msg: 'Contacte al administrador'
         });
     }
 };

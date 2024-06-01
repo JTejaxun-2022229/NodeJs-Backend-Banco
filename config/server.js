@@ -63,7 +63,7 @@ class Server {
     async createAdminIfNotExists() {
         try {
             const adminEmail = 'ADMINB@gmail.com'
-            const adminPassword = 'ADMINB'
+            const adminPassword = 'ADMINB' 
 
             let admin = await Admin.findOne({ email: adminEmail })
 

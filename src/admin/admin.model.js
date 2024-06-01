@@ -1,14 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
 
-const AdminSchema = mongoose.Schema({
+const AdminSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        require: true
+        required: true
     },
     password: {
         type: String,
-        require: true
+        required: true
     },
     role: {
         type: String,
@@ -18,12 +18,12 @@ const AdminSchema = mongoose.Schema({
         type: Boolean,
         default: true
     }
-})
+});
 
 AdminSchema.methods.toJSON = function () {
     const { __v, password, _id, ...admin } = this.toObject();
-    admin.Admin_Dd = _id;
+    admin.adminId = _id;
     return admin;
-}
+};
 
-export default mongoose.model('Admin', AdminSchema)
+export default mongoose.model('Admin', AdminSchema);

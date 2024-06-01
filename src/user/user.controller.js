@@ -121,7 +121,7 @@ export const deleteUser = async (req, res) => {
         });
     }
 
-    user.state = false;
+    user.status = false;
 
     const usuario = await User.findByIdAndUpdate(user.id, user, { new: true });
 
