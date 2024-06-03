@@ -63,7 +63,7 @@ export const getUserEmail = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const { email, currentPassword, name, username, address, phone, newPassword, workPlace, salary, balance } = req.body;
+    const { email, currentPassword, name, username, address, phone, workPlace, salary } = req.body;
 
     try {
         const user = await User.findOne({ email });
