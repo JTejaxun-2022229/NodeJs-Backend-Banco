@@ -1,0 +1,69 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "benefit collection",
+    "collectionId": "7d1e5f3b-5634-4fcc-827f-48f99d289415",
+    "dateExported": "2024-06-03T23:09:57.718Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "afd34ad6-c043-499f-b4a4-e9e696e7edcf",
+            "colId": "7d1e5f3b-5634-4fcc-827f-48f99d289415",
+            "containerId": "",
+            "name": "create benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-06-03T22:06:55.831Z",
+            "modified": "2024-06-03T22:58:55.507Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nameBenefit\": \"Playera\",\n  \"descriptionBenefit\": \"Playera para hombre\",\n  \"stock\": \"100\",\n  \"price\": \"45.50\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "099c97c2-533d-4880-acb5-6b257e97fd62",
+            "colId": "7d1e5f3b-5634-4fcc-827f-48f99d289415",
+            "containerId": "",
+            "name": "get benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-06-03T22:17:30.800Z",
+            "modified": "2024-06-03T23:05:42.629Z",
+            "headers": []
+        },
+        {
+            "_id": "b492e061-856c-49d4-898d-287d8e29fa30",
+            "colId": "7d1e5f3b-5634-4fcc-827f-48f99d289415",
+            "containerId": "",
+            "name": "update benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/update/665e4a9be96720920cfa8777",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-06-03T23:02:20.119Z",
+            "modified": "2024-06-03T23:03:38.291Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descriptionBenefit\": \"Playera para niños\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "72ebddfe-d1dc-4052-90c9-369f946b57b3",
+            "colId": "7d1e5f3b-5634-4fcc-827f-48f99d289415",
+            "containerId": "",
+            "name": "delete benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/665e4a5ee96720920cfa8775",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-06-03T23:03:51.231Z",
+            "modified": "2024-06-03T23:05:25.024Z",
+            "headers": []
+        }
+    ],
+    "ref": "lhFf6qld_dV9osS0-84ErZA67PdyfwD70yOBcRWtKmVIPloRkGJdkbZCxKtzE5McmXQhY9Jc0DEcLfICrtVmsg"
+}
