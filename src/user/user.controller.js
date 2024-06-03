@@ -80,12 +80,7 @@ export const updateUser = async (req, res) => {
             });
         }
 
-        const updateFields = { name, username, address, phone, workPlace, salary, balance };
-
-        if (newPassword) {
-            const salt = bcryptjs.genSaltSync();
-            updateFields.password = bcryptjs.hashSync(newPassword, salt);
-        }
+        const updateFields = { name, username, address, phone, workPlace, salary };
 
         const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true });
 
