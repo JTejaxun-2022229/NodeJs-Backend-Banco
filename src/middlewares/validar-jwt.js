@@ -14,7 +14,7 @@ export const validarJWT = async(req = request, res = response, next) => {
 
         token = token.replace(/^Bearer\s+/, '')
 
-        const decoded = jwt.verify(token, process.env.TOKEN_KEY)
+        const decoded = jwt.verify(token, process.env.SECRETPRIVATEKEY)
 
         req.user = decoded  
 
