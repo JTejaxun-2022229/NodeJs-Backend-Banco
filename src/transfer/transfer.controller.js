@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import Transfer from './transfer.model.js';
 
 export const createTransfer = async (req, res) => {
-    const { transfer, emisor, receptor, balance, description, reserved } = req.body;
+    const { amount, emisor, receptor, balance, description, reserved } = req.body; // Cambiado 'transfer' a 'amount'
     try {
         const newTransfer = new Transfer({
-            transfer,
+            amount,  
             emisor,
             receptor,
             balance,
@@ -68,7 +68,7 @@ export const updateTransfer = async (req, res) => {
 export const deleteTransfer = async (req, res) => {
     const { id } = req.params;
     try {
-        const deletedTransfer = await Transfer.findByIdAndDelete(id);
+        const deletedTransfer = await Transfer.findOneAndDelete({ _id: id });
         if (!deletedTransfer) {
             return res.status(404).send('Transfer not found');
         }
