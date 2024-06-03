@@ -7,24 +7,23 @@ const router = Router();
 router.post(
     "/create",
     [
-        check("nameBenefit").not().isEmpty,
-        check("descriptionBenefit").not().isEmpty,
-        check("stock").not().isEmpty,
-        check("price").not().isEmpty
+        check("nameBenefit").not().isEmpty(),
+        check("descriptionBenefit").not().isEmpty(),
+        check("stock").not().isEmpty(),
+        check("price").not().isEmpty()
     ],
-
     createBenefit
-)
+);
 
 router.get(
     "/",
     getBenefits
-)
+);
 
 router.get(
     "/:id",
     getBenefitById
-)
+);
 
 router.put(
     "/update/:id",
@@ -32,7 +31,7 @@ router.put(
         check("id", "Invalid hotel ID").isMongoId(),
     ],
     updateBenefit
-)
+);
 
 router.delete(
     "/:id",
@@ -40,6 +39,6 @@ router.delete(
         check("id", "Invalid hotel ID").isMongoId(),
     ],
     deleteBenefit
-)
+);
 
-export default router
+export default router;
