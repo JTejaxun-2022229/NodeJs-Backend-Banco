@@ -1,6 +1,7 @@
 import User from '../user/user.model.js';
 import Admin from "../admin/admin.model.js";
 import Favorite from '../favorite/favorite.model.js'
+import Credit from '../credit/credit.model.js'
 
 export const existeEmail = async (email = '') => {
     console.log('existeEmail', email);
