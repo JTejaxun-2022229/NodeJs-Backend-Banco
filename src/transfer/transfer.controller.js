@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Transfer from './transfer.model.js';
 
 export const createTransfer = async (req, res) => {
-    const { amount, emisor, receptor, balance, description, reserved } = req.body; // Cambiado 'transfer' a 'amount'
+    const { amount, emisor, receptor, balance, description, reserved } = req.body; 
     try {
         const newTransfer = new Transfer({
             amount,  
@@ -68,12 +68,17 @@ export const updateTransfer = async (req, res) => {
 export const deleteTransfer = async (req, res) => {
     const { id } = req.params;
     try {
-        const deletedTransfer = await Transfer.findOneAndDelete({ _id: id });
-        if (!deletedTransfer) {
-            return res.status(404).send('Transfer not found');
-        }
-        res.status(204).send();
-    } catch (error) {
-        res.status(500).send('Error deleting transfer');
+        const transfer = await Transfer.findByIdAndUpdate(id, { status: false });
+    
+        res.status(200).json({
+            msg: 'The transfer has been removed',
+            transfer
+        });
+        
+    } catch (e) {
+        console.e('error trying to remove the transfer:', e);
+        res.status(500).json({
+            error: 'Internal error server'
+        });
     }
 };
