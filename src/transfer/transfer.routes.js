@@ -24,6 +24,7 @@ router.put('/:transferId',
 
 router.delete('/:trasnferId',
     [
+        validateJWT,
         check('transferDelete', 'The transfer ID is necesary').not().isEmpty()
     ], deleteTransfer)
 
