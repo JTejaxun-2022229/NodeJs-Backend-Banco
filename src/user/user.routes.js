@@ -43,16 +43,14 @@ router.get(
 router.put(
   "/updateUser",
   [
-    check('email', 'The email is mandatory and must be a valid email').isEmail(),
-    check('currentPassword', 'The current password is required and must be at least 6 characters').isLength({ min: 6 }),
-    check("name", "The name cannot be empty").optional().notEmpty(),
-    check('username', 'The username cannot be empty').optional().notEmpty(),
+    check('email', 'The email is mandatory and must be a valid email').isEmail(),//
+    check('currentPassword', 'The current password is required and must be at least 6 characters').isLength({ min: 6 }),//
+    check("name", "The name cannot be empty").optional().notEmpty(),//
+    check('username', 'The username cannot be empty').optional().notEmpty(),//
     check('address', 'The address cannot be empty').optional().notEmpty(),
-    check('phone', 'The phone cannot be empty and must be numeric').optional().isNumeric().isLength({ min: 8 }),
-    check('newPassword', 'The new password must be at least 6 characters').optional().isLength({ min: 6 }),
-    check('workPlace', 'The workplace cannot be empty').optional().notEmpty(),
+    check('phone', 'The phone cannot be empty and must be numeric').optional().isNumeric().isLength({ min: 8 }),//
+    check('workPlace', 'The workplace cannot be empty').optional().notEmpty(),//
     check('salary', 'The salary must be a number and at least 100').isFloat({ min: 100 }).not().isEmpty(),
-    check('balance', 'The balance cannot be empty and must be numerical').optional().isNumeric(),
     validarCampos,
     validarJWT,
   ],
