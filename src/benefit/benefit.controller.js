@@ -1,5 +1,5 @@
 import { response, request } from "express";
-import Benefit from "./benefit.routes.js";
+import Benefit from "./benefit.model.js";
 
 export const createBenefit = async (req, res) => {
 
@@ -37,6 +37,7 @@ export const getBenefits = async (req, res) => {
     } catch (error) {
 
         res.status(500).json({ error: 'Error getting benefits' })
+        console.log(error)
     }
 }
 
@@ -60,14 +61,41 @@ export const getBenefitById = async (req, res) => {
     }
 }
 
-export const deleteBenefit = async(req, res) => {
+export const updateBenefit = async (req, res) => {
 
-    try{
+    try {
 
         const { id } = req.params;
-        
-    }catch(error){
 
-        res.status(500).json({ error: 'Error when deleting benefit'})
+        const { nameBenefit, descriptionBenefit, stock, price, image } = req.body;
+
+        const updatedFields = { nameBenefit, descriptionBenefit, stock, price, image };
+
+        const updatedBenefit = await Benefit.findByIdAndUpdate(id, updatedFields, { new: true });
+
+        if (!updatedBenefit) {
+
+            return res.status(404).json({ message: 'Benefit not found' });
+        }
+
+        res.status(200).json(updatedBenefit);
+    } catch (error) {
+        
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export const deleteBenefit = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const benefit = await Benefit.findByIdAndUpdate(id, { status: false });
+
+        res.status(200).json({ msg: 'Benefit has been disable', benefit })
+    } catch (error) {
+
+        res.status(500).json({ error: 'Error when deleting benefit' })
     }
 }

@@ -5,7 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
-
+import benefitRoutes from '../src/benefit/benefit.routes.js'
 
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
@@ -16,6 +16,7 @@ class Server {
 
         this.app = express()
         this.port = process.env.PORT
+        this.benefitPath = '/quetzalito/v1/benefit'
 
         this.middlewares()
         this.conectarDB()
@@ -37,7 +38,8 @@ class Server {
     }
 
     routes() {
-        
+
+        this.app.use(this.benefitPath, benefitRoutes)
     }
 
     listen() {
