@@ -27,7 +27,7 @@ const transferSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Description is required']
     },
-    reserved: {
+    reverted: {
         type: Boolean,
         default: false
     }

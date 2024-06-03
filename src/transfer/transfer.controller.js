@@ -68,7 +68,7 @@ export const updateTransfer = async (req, res) => {
 export const deleteTransfer = async (req, res) => {
     const { id } = req.params;
     try {
-        const transfer = await Transfer.findByIdAndUpdate(id, { status: false });
+        const transfer = await Transfer.findByIdAndUpdate(id, { reversed: true });
     
         res.status(200).json({
             msg: 'The transfer has been removed',
