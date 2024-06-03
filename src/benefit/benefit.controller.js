@@ -80,7 +80,7 @@ export const updateBenefit = async (req, res) => {
 
         res.status(200).json(updatedBenefit);
     } catch (error) {
-        
+
         res.status(500).json({ message: error.message });
     }
 };
