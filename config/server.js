@@ -12,6 +12,7 @@ import Admin from '../src/admin/admin.model.js';
 import User from '../src/user/user.model.js';
 import bcryptjs from "bcryptjs";
 import { dbConnection } from './mongo.js'
+import creditRouter from "../src/credit/credit.routes.js"
 
 
 // si van a usar un path para una entidad que sea de esta manera
@@ -31,6 +32,7 @@ class Server {
         this.authPath = '/quetzalito/v1/auth';
         this.adminPath = '/quetzalito/v1/admin';
         this.favoritePath = '/quetzalito/v1/favorite';
+        this.creditPath = '/quetzalito/v1/credit'
 
         this.middlewares()
         this.conectarDB()
@@ -58,6 +60,7 @@ class Server {
         this.app.use(this.authPath, authRoutes)
         this.app.use(this.adminPath, adminRoutes)
         this.app.use(this.favoritePath, favoriteRoutes)
+        this.app.use(this.creditPath, creditRouter)
     }
 
     async createAdminIfNotExists() {
