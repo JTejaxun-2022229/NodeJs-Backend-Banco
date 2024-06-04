@@ -27,6 +27,11 @@ const PurchaseSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    datePurchase: {
+
+        type: Date,
+        default: Date.now
+    },
     refunded: {
 
         type: Boolean,
