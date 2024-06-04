@@ -14,8 +14,14 @@ const CreditSchema = mongoose.Schema({
         default: 1000
     },
     // Formato mm/m/aaaa
-    fecha: {
+    date: {
         type: Date,
+        default: Date.now
+    },
+
+    fechaUltimaAprobacion: {
+        type: Date,
+        default: null
     },
 
     description: {
@@ -24,7 +30,7 @@ const CreditSchema = mongoose.Schema({
 
     /*El estado nos servira para que el administrador sepa cuales son los creditos en espera
     si cambia a falso es por que el credito fue aprobado*/
-    estado: {
+    status: {
         type: Boolean,
         default: true
     }
