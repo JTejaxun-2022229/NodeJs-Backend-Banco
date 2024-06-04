@@ -2,6 +2,9 @@ import User from '../user/user.model.js';
 import Admin from "../admin/admin.model.js";
 import Favorite from '../favorite/favorite.model.js'
 import Credit from '../credit/credit.model.js'
+import Benefit from '../benefit/benefit.model.js'
+
+// user validations
 
 export const existeEmail = async (email = '') => {
     console.log('existeEmail', email);
@@ -27,6 +30,8 @@ export const existeDPI = async (DPI = '') => {
     }
 };
 
+//admin validations
+
 /* Validación para que no se repita el correo en el post */
 export const existingAdminEmail = async (email = '') => {
     const existEmail = await Admin.findOne({ email });
@@ -43,9 +48,52 @@ export const existeAdminById = async (id = '') => {
     }
 };
 
+// favorite validation
+
 export const existsFavoriteById = async (id = '') => {
     const existFavorite = await Favorite.findById(id);
     if (!existFavorite) {
         throw new Error(`Favorite with ID ${id} does not exist in the database!`);
     }
 };
+
+
+// benefit validation
+
+export const existsBenefit = async (id = '') => {
+
+    const benefitExists = await Benefit.findOne({ id });
+
+    if (benefitExists) {
+
+        throw new Error(`Benefit with ${id} does not exists.`);
+    }
+}
+
+export const existsNameBenefit = async (nameBenefit = '') => {
+
+    const nameBenefitExists = await Benefit.findOne({ nameBenefit });
+
+    if (nameBenefitExists) {
+
+        throw new Error(`The benefit called ${nameBenefit} is already registered.`);
+    }
+}
+
+export const priceAboveZero = async (price = '') => {
+
+    if (price <= 0) {
+        
+        throw new Error('Price must be greater than zero.');
+    }
+}
+
+export const benefitStatus = async (id = '') => {
+
+    const benefit = await Benefit.findById(id);
+
+    if (!Benefit.status) {
+
+        throw new Error(`Benefit ${benefit.nameBenefit} is alredy disable`);
+    }
+}

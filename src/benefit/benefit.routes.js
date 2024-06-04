@@ -1,16 +1,21 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { createBenefit, getBenefits, getBenefitById, updateBenefit, deleteBenefit } from "./benefit.controller.js";
+import { existsBenefit, existsNameBenefit, priceAboveZero, benefitStatus } from "../helpers/db-validators.js";
+import { validarCampos } from "../middlewares/validar-campos.js";
 
 const router = Router();
 
 router.post(
     "/create",
     [
-        check("nameBenefit").not().isEmpty,
-        check("descriptionBenefit").not().isEmpty,
-        check("stock").not().isEmpty,
-        check("price").not().isEmpty
+        check("nameBenefit", "Name to benefit is necesary").not().isEmpty,
+        check("nameBenefit").custom(existsNameBenefit),
+        check("descriptionBenefit", "Description to benefit is necesary").not().isEmpty,
+        check("stock", "Stock to benefit is necesary").not().isEmpty,
+        check("price", "Price to benefit is necesary").not().isEmpty,
+        check("price").custom(priceAboveZero),
+        validarCampos
     ],
 
     createBenefit
@@ -23,13 +28,20 @@ router.get(
 
 router.get(
     "/:id",
+    [
+        check("id", "Invalid benefit ID").isMongoId(),
+        check("id").custom(existsBenefit)
+    ],
     getBenefitById
 )
 
 router.put(
     "/update/:id",
     [
-        check("id", "Invalid hotel ID").isMongoId(),
+        check("id", "Invalid benefit ID").isMongoId(),
+        check("id").custom(existsBenefit),
+        check("nameBenefit").custom(existsNameBenefit),
+        check("price").custom(priceAboveZero)
     ],
     updateBenefit
 )
@@ -37,7 +49,9 @@ router.put(
 router.delete(
     "/:id",
     [
-        check("id", "Invalid hotel ID").isMongoId(),
+        check("id", "Invalid benefit ID").isMongoId(),
+        check("id").custom(existsBenefit),
+        check("id").custom(benefitStatus)
     ],
     deleteBenefit
 )
