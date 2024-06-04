@@ -63,7 +63,7 @@ export const getUserEmail = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const { email, currentPassword, name, username, address, phone, newPassword, workPlace, salary, balance } = req.body;
+    const { email, currentPassword, name, username, address, phone, workPlace, salary } = req.body;
 
     try {
         const user = await User.findOne({ email });
@@ -80,12 +80,7 @@ export const updateUser = async (req, res) => {
             });
         }
 
-        const updateFields = { name, username, address, phone, workPlace, salary, balance };
-
-        if (newPassword) {
-            const salt = bcryptjs.genSaltSync();
-            updateFields.password = bcryptjs.hashSync(newPassword, salt);
-        }
+        const updateFields = { name, username, address, phone, workPlace, salary };
 
         const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true });
 
@@ -121,7 +116,7 @@ export const deleteUser = async (req, res) => {
         });
     }
 
-    user.status = false;
+    user.state = false;
 
     const usuario = await User.findByIdAndUpdate(user.id, user, { new: true });
 
