@@ -52,12 +52,11 @@ class Server {
     }
 
     middlewares() {
-
-        this.app.use(express.urlencoded({ extended: true }))
-        this.app.use(cors())
-        this.app.use(express.json())
-        this.app.use(helmet())
-        this.app.use(morgan('dev'))
+        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(cors());
+        this.app.use(express.json());
+        this.app.use(helmet());
+        this.app.use(morgan('dev'));
     }
 
     routes() {
@@ -74,7 +73,7 @@ class Server {
     async createAdminIfNotExists() {
         try {
             const adminEmail = 'ADMINB@gmail.com'
-            const adminPassword = 'ADMINB' 
+            const adminPassword = 'ADMINB'
 
             let admin = await Admin.findOne({ email: adminEmail })
 

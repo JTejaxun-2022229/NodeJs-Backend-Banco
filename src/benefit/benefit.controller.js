@@ -7,6 +7,11 @@ export const createBenefit = async (req, res) => {
 
         const { nameBenefit, descriptionBenefit, stock, price } = req.body;
 
+        if (!nameBenefit || !descriptionBenefit || stock == null || price == null) {
+
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
         const benefit = new Benefit({ nameBenefit, descriptionBenefit, stock, price });
 
         const newBenefit = await benefit.save();
@@ -14,9 +19,11 @@ export const createBenefit = async (req, res) => {
         res.status(201).json(newBenefit);
     } catch (error) {
 
-        res.status(500).json({ error: 'Error when created a new benefit' });
+        console.error('Error creating benefit:', error);
+
+        res.status(500).json({ error: 'Error when creating a new benefit' });
     }
-}
+};
 
 export const getBenefits = async (req, res) => {
 
@@ -25,8 +32,10 @@ export const getBenefits = async (req, res) => {
         const { nameBenefit, price, status } = req.query;
 
         const filter = {};
-        if (nameBenefit) filter.nameBenefit = { $regex: nameBenefit, $option: 'i' };
-        if (price) filter.price = { $regex: price, $option: 'i' };
+        if (nameBenefit) filter.nameBenefit = { $regex: nameBenefit, $options: 'i' };
+
+        if (price) filter.price = { $regex: price, $options: 'i' };
+
         if (status !== undefined) filter.status = status;
 
         const benefits = await Benefit.find(filter);
@@ -37,7 +46,29 @@ export const getBenefits = async (req, res) => {
     } catch (error) {
 
         res.status(500).json({ error: 'Error getting benefits' })
-        console.log(error)
+    }
+}
+
+export const getBenefitsActives = async (req, res) => {
+
+    try {
+
+        const { nameBenefit, price } = req.query;
+
+        const filter = { status: true };
+
+        if (nameBenefit) filter.nameBenefit = { $regex: nameBenefit, $options: 'i' };
+
+        if (price) filter.price = { $regex: price, $options: 'i' };
+
+        const benefits = await Benefit.find(filter);
+
+        const total = benefits.length;
+
+        res.status(200).json({ total, benefits });
+    } catch (error) {
+
+        res.status(500).json({ error: 'Error getting benefits' })
     }
 }
 

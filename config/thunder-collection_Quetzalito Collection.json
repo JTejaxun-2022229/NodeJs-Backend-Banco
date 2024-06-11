@@ -1,0 +1,161 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Quetzalito Collection",
+    "collectionId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+    "dateExported": "2024-06-11T22:32:51.565Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "5abe9e88-e905-40f5-a522-cdcbcaf8f2c7",
+            "name": "user collection",
+            "containerId": "",
+            "created": "2024-06-11T19:23:13.420Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "cc0f8287-4324-4f80-b6b8-38cbc80b99cf",
+            "name": "auth collection",
+            "containerId": "",
+            "created": "2024-06-11T19:37:18.708Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "faac67e9-7eab-4135-8ed9-3c2b0ae28498",
+            "name": "admin collection",
+            "containerId": "",
+            "created": "2024-06-11T19:37:39.145Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "benefit collection",
+            "containerId": "",
+            "created": "2024-06-11T20:29:19.262Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "d6209959-a8c3-415d-a094-98c0eac3c310",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "5abe9e88-e905-40f5-a522-cdcbcaf8f2c7",
+            "name": "create user",
+            "url": "http://localhost:4000/quetzalito/v1/user/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-06-11T19:23:50.116Z",
+            "modified": "2024-06-11T19:35:53.639Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Pedro Rodríguez\",\n  \"username\": \"pedro202\",\n  \"DPI\": \"4455667788990\",\n  \"address\": \"2020 Avenida Quinta\",\n  \"phone\": 555202303,\n  \"email\": \"pedro@example.com\",\n  \"password\": \"password202\",\n  \"workPlace\": \"Healthcare Center\",\n  \"salary\": 65000,\n  \"balance\": 3000\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "8e9754d6-85ce-44ac-a270-7b33edad2ddd",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "5abe9e88-e905-40f5-a522-cdcbcaf8f2c7",
+            "name": "get users",
+            "url": "http://localhost:4000/quetzalito/v1/user",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-06-11T19:36:18.552Z",
+            "modified": "2024-06-11T19:44:22.110Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjY4YTcxOTgyOTY2NDM3MzA4Y2Y1YzkiLCJlbWFpbCI6InBlZHJvQGV4YW1wbGUuY29tIiwiYWNjb3VudFR5cGUiOiJ1c2VyIiwiaWF0IjoxNzE4MTM0OTcwLCJleHAiOjE3MTgxNTI5NzB9.4hshRhuJPicYcU_jWxxa_LmfcPkJ25q7-XgQnaMUdk8"
+                }
+            ]
+        },
+        {
+            "_id": "b770e06e-b4d2-45e4-9f55-7699e0793f61",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "cc0f8287-4324-4f80-b6b8-38cbc80b99cf",
+            "name": "login",
+            "url": "http://localhost:4000/quetzalito/v1/auth/login",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-06-11T19:37:28.779Z",
+            "modified": "2024-06-11T19:42:50.656Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"pedro@example.com\",\n  \"password\": \"password202\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d9e178a2-0e64-443a-ba17-81b41cdf689a",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "create benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/create",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-06-11T20:29:30.401Z",
+            "modified": "2024-06-11T20:52:01.266Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nameBenefit\": \"Gym Membership\",\n  \"descriptionBenefit\": \"Access to all gym facilities including classes and equipment.\",\n  \"stock\": 50,\n  \"price\": 30,\n  \"image\": \"gym.jpg\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "f5e76eb4-8853-41ca-91b9-ef1683e45fd7",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "get benefits",
+            "url": "http://localhost:4000/quetzalito/v1/benefit",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-06-11T21:59:02.779Z",
+            "modified": "2024-06-11T21:59:11.305Z",
+            "headers": []
+        },
+        {
+            "_id": "82727ad1-831f-43eb-866a-17be341019b7",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "get benefits actives",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/benefits",
+            "method": "GET",
+            "sortNum": 65000,
+            "created": "2024-06-11T22:19:05.391Z",
+            "modified": "2024-06-11T22:30:52.687Z",
+            "headers": []
+        },
+        {
+            "_id": "f0bca4be-1c63-4dd0-964a-60bb3d572f38",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "update benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/update/6668c86e666f6fad729d25a6",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-06-11T22:09:04.960Z",
+            "modified": "2024-06-11T22:12:12.554Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"image\": \"pelucheQuetzalito.png\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "4a9e1893-89ce-41d6-a69a-8a6d9cfacdb6",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "eb5ed600-ee10-42ab-86eb-281a1a67852b",
+            "name": "delete benefit",
+            "url": "http://localhost:4000/quetzalito/v1/benefit/6668c86e666f6fad729d25a6",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2024-06-11T22:12:53.327Z",
+            "modified": "2024-06-11T22:17:43.525Z",
+            "headers": []
+        }
+    ],
+    "ref": "SEXcLESV4JHb6uZkPnP3gCzLQFArnzFOFTp2bvWx7xrJV3Vu768eI6nOtFx4Ub_VhwR13yz36gXH2w7n0VTPqw"
+}
