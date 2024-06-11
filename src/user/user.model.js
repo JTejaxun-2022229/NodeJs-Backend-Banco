@@ -44,6 +44,7 @@ const UserSchema = new mongoose.Schema({
     },
     balance: {
         type: Number,
+        default: 0,
         required: [true, 'Balance of user']
     },
     role: {

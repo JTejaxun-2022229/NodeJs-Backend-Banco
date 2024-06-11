@@ -27,9 +27,13 @@ const transferSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Description is required']
     },
-    reverted: {
+    isReverted: {
         type: Boolean,
         default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -2,21 +2,46 @@ import mongoose from "mongoose";
 import Transfer from './transfer.model.js';
 
 export const createTransfer = async (req, res) => {
-    const { amount, emisor, receptor, balance, description, reserved } = req.body; 
+    const { amount, emisor, receptor, description } = req.body; 
+    
     try {
+        const emisorUser = await UserActivation.findById(emisor);
+        if (emisorUser.balance < amount) {
+            return res.status(400).send('Insufficient balance');
+        }
+
+        const now = new Date();
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const dailyTransfers = await Transfer.aggregate([
+            { $match: { emisor: mongoose.Types.ObjectId(emisor), date: { $gte: todayStart } } },
+            { $group: { _id: "$emisor", totalAmount: { $sum: "$amount" } } }
+        ]);
+
+        const totalAmountToday = dailyTransfers.length ? dailyTransfers[0].totalAmount : 0;
+        if (totalAmountToday + amount > 10000) {
+            return res.status(400).send('daily transfer limit exceeded');
+        }
+
         const newTransfer = new Transfer({
-            amount,  
+            amount,
             emisor,
             receptor,
-            balance,
-            date: new Date(),
+            balance: emisorUser.balance - amount,
             description,
-            reserved
+            date: new Date()
         });
+
+        emisorUser.balance -= amount;
+        await emisorUser.save();
+
+        const receptorUser = await User.findById(receptor);
+        receptorUser.balance += amount;
+        await receptorUser.save();
 
         await newTransfer.save();
         res.status(201).json(newTransfer);
-    } catch (error) {
+    } catch (e) {
+        console.error('Error creating transfer:', error);
         res.status(400).send('Error creating transfer');
     }
 };
@@ -45,16 +70,9 @@ export const getTransferById = async (req, res) => {
 
 export const updateTransfer = async (req, res) => {
     const { id } = req.params;
-    const { transfer, emisor, receptor, balance, description, reserved } = req.body;
+    const { amount } = req.body;
     try {
-        const updatedTransfer = await Transfer.findByIdAndUpdate(id, {
-            transfer,
-            emisor,
-            receptor,
-            balance,
-            description,
-            reserved
-        }, { new: true });
+        const updatedTransfer = await Transfer.findByIdAndUpdate(id, { amount }, { new: true });
 
         if (!updatedTransfer) {
             return res.status(404).send('Transfer not found');
