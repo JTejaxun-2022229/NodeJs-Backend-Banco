@@ -17,7 +17,6 @@ router.post(
         check("price").custom(priceAboveZero),
         validarCampos
     ],
-
     createBenefit
 )
 

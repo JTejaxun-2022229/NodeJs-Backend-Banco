@@ -4,6 +4,7 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
+import { dbConnection } from './mongo.js'
 import adminRoutes from '../src/admin/admin.routes.js';
 import userRoutes from '../src/user/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
@@ -11,9 +12,10 @@ import favoriteRoutes from '../src/favorite/favorite.routes.js';
 import Admin from '../src/admin/admin.model.js';
 import User from '../src/user/user.model.js';
 import bcryptjs from "bcryptjs";
-import { dbConnection } from './mongo.js'
 import creditRouter from "../src/credit/credit.routes.js"
-
+import benefitRoutes from "../src/benefit/benefit.routes.js"
+import purchaseRoutes from "../src/purchase/purchase.controller.js"
+import transferRoutes from "../src/transfer/transfer.routes.js"
 
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
@@ -32,7 +34,10 @@ class Server {
         this.authPath = '/quetzalito/v1/auth';
         this.adminPath = '/quetzalito/v1/admin';
         this.favoritePath = '/quetzalito/v1/favorite';
-        this.creditPath = '/quetzalito/v1/credit'
+        this.creditPath = '/quetzalito/v1/credit';
+        this.benefitPath = '/quetzalito/v1/benefit';
+        this.purchasePath = '/quetzalito/v1/purchase';
+        this.transferPath = '/quetzalito/v1/transfer'
 
         this.middlewares()
         this.conectarDB()
@@ -61,6 +66,9 @@ class Server {
         this.app.use(this.adminPath, adminRoutes)
         this.app.use(this.favoritePath, favoriteRoutes)
         this.app.use(this.creditPath, creditRouter)
+        this.app.use(this.benefitPath, benefitRoutes)
+        this.app.use(this.purchasePath, purchaseRoutes)
+
     }
 
     async createAdminIfNotExists() {
