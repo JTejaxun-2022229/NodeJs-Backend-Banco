@@ -86,7 +86,27 @@ export const updateTransfer = async (req, res) => {
 export const deleteTransfer = async (req, res) => {
     const { id } = req.params;
     try {
-        const transfer = await Transfer.findByIdAndUpdate(id, { reversed: true });
+        const transfer = await Transfer.findById(id);
+        if (!transfer) {
+            return res.status(404).send('Transfer not found')
+        }
+
+        const now = new Date();
+        const oneMinute = 1 * 60 * 1000;
+
+        if (now - new Date(transfer.createdAt) > oneMinute) {
+            return res.status(400).send('Cannot revert transfer after 1 minute')
+        }
+
+        transfer.isReverted = true;
+
+        const emisorUser = await User.findById(transfer.emisor);
+        emisorUser.balance += transfer.amount;
+        await emisorUser.save();
+
+        const receptorUser = await User.findById(transfer.receptor);
+        receptorUser.balance -= transfer.amount;
+        await transfer.save();
     
         res.status(200).json({
             msg: 'The transfer has been removed',
