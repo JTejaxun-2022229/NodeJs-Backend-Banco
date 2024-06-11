@@ -1,15 +1,15 @@
-import {Router} from "express";
-import {check} from "express-validator";
-import {createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer} from "./transfer.controller.js";
-import {validateJWT} from "../middlewares/validate-jwt.js";
+import { Router } from "express";
+import { check } from "express-validator";
+import { createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer } from "./transfer.controller.js";
+import { validateJWT } from "../middlewares/validate-jwt.js";
 
 const router = Router()
 
 router.get('/', getTransfers)
 
-router.get('/:transferId',
+router.get('/:id',
     [
-        check('transferId', 'The transfer ID is necesary').not().isEmpty()
+        check('id', 'The transfer ID is necessary').not().isEmpty()
     ], getTransferById)
 
 router.post('/trasnfer',
@@ -17,15 +17,15 @@ router.post('/trasnfer',
         validateJWT
     ],createTransfer)
 
-router.put('/:transferId',
+router.put('/:id',
     [
-        check('transferUpdate', 'The transfer ID is necesary').not().isEmpty()
+        check('id', 'The transfer ID is necessary').not().isEmpty()
     ], updateTransfer)
 
-router.delete('/:trasnferId',
+router.delete('/:id',
     [
         validateJWT,
-        check('transferDelete', 'The transfer ID is necesary').not().isEmpty()
+        check('id', 'The transfer ID is necessary').not().isEmpty()
     ], deleteTransfer)
 
 export default router 
