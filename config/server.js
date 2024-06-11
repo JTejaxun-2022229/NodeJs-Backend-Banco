@@ -4,17 +4,17 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
+import bcryptjs from "bcryptjs";
 import { dbConnection } from './mongo.js'
+import Admin from '../src/admin/admin.model.js';
+import User from '../src/user/user.model.js';
 import adminRoutes from '../src/admin/admin.routes.js';
 import userRoutes from '../src/user/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import favoriteRoutes from '../src/favorite/favorite.routes.js';
-import Admin from '../src/admin/admin.model.js';
-import User from '../src/user/user.model.js';
-import bcryptjs from "bcryptjs";
 import creditRouter from "../src/credit/credit.routes.js"
 import benefitRoutes from "../src/benefit/benefit.routes.js"
-import purchaseRoutes from "../src/purchase/purchase.controller.js"
+import purchaseRoutes from "../src/purchase/purchase.routes.js"
 import transferRoutes from "../src/transfer/transfer.routes.js"
 
 // si van a usar un path para una entidad que sea de esta manera
@@ -68,7 +68,7 @@ class Server {
         this.app.use(this.creditPath, creditRouter)
         this.app.use(this.benefitPath, benefitRoutes)
         this.app.use(this.purchasePath, purchaseRoutes)
-
+        this.app.use(this.transferPath, transferRoutes)
     }
 
     async createAdminIfNotExists() {

@@ -27,3 +27,5 @@ router.patch(
     '/:id',
     refundPurchase
 )
+
+export default router;

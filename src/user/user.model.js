@@ -1,6 +1,3 @@
-
-
-
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
@@ -10,15 +7,18 @@ const UserSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: [true, 'username']
+        required: [true, 'username'],
+        unique: true
     },
     account: {
         type: Number,
         default: () => Math.floor(Math.random() * 1e10),
+        unique: true
     },
     DPI: {
         type: String,
-        required: [true, `The user's personal identification document`]
+        required: [true, `The user's personal identification document`],
+        unique: true
     },
     address: {
         type: String,

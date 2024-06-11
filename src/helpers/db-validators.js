@@ -6,27 +6,33 @@ import Benefit from '../benefit/benefit.model.js'
 
 // user validations
 
-export const existeEmail = async (email = '') => {
-    console.log('existeEmail', email);
-    try {
-        const user = await User.findOne({ email, state: true });
-        if (user) {
-            throw new Error(`The user with email ${email} already exists`);
-        }
-    } catch (error) {
-        throw new Error(`Error verifying email existence: ${error.message}`);
+
+export const existUsername = async (username = '') => {
+    const usernameExist = await User.findOne({ username });
+    if (usernameExist) {
+        throw new Error(`A user with this username: ${username} is already in the database`);
     }
 };
 
+export const existNoAccount = async (account = '') => {
+    const accountExist = await User.findOne({ account });
+    if (accountExist) {
+        throw new Error(`A user with this account: ${account} is already in the database`);
+    }
+}
+
 export const existeDPI = async (DPI = '') => {
-    console.log('existeDPI', DPI);
-    try {
-        const user = await User.findOne({ DPI, state: true });
-        if (user) {
-            throw new Error(`The user with DPI ${DPI} already exists`);
-        }
-    } catch (error) {
-        throw new Error(`Error verifying DPI existence: ${error.message}`);
+
+    const DPIExist = await User.findOne({ DPI });
+    if (DPIExist) {
+        throw new Error(`A user with this DPI: ${DPI} is already in the database`);
+    }
+};
+
+export const existeEmail = async (email = '') => {
+    const existEmailUser = await User.findOne({ email });
+    if (existEmailUser) {
+        throw new Error(`A user with this email: ${email} is already in the database`);
     }
 };
 
@@ -83,7 +89,7 @@ export const existsNameBenefit = async (nameBenefit = '') => {
 export const priceAboveZero = async (price = '') => {
 
     if (price <= 0) {
-        
+
         throw new Error('Price must be greater than zero.');
     }
 }

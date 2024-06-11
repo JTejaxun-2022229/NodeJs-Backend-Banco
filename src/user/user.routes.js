@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-
 import { getUsers, getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
-import { existeDPI, existeEmail } from '../helpers/db-validators.js';
+import { existeDPI, existeEmail, existNoAccount, existUsername } from '../helpers/db-validators.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 
@@ -14,6 +13,7 @@ router.post(
   [
     check("name", "The name cannot be empty").not().isEmpty(),
     check('username', 'The username cannot be empty').not().isEmpty(),
+    check('username').custom(existUsername),
     check('DPI', 'The DPI cannot be empty').not().isEmpty().isLength({ min: 13 }),
     check('DPI').custom(existeDPI),
     check('address', 'The address cannot be empty').not().isEmpty(),

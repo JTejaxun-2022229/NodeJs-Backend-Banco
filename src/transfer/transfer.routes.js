@@ -1,7 +1,7 @@
-import {Router} from "express";
-import {check} from "express-validator";
-import {createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer} from "./transfer.controller.js";
-import {validateJWT} from "../middlewares/validate-jwt.js";
+import { Router } from "express";
+import { check } from "express-validator";
+import { createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer } from "./transfer.controller.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router()
 
@@ -14,8 +14,8 @@ router.get('/:transferId',
 
 router.post('/trasnfer',
     [
-        validateJWT
-    ],createTransfer)
+        validarJWT
+    ], createTransfer)
 
 router.put('/:transferId',
     [
@@ -24,7 +24,7 @@ router.put('/:transferId',
 
 router.delete('/:trasnferId',
     [
-        validateJWT,
+        validarJWT,
         check('transferDelete', 'The transfer ID is necesary').not().isEmpty()
     ], deleteTransfer)
 
