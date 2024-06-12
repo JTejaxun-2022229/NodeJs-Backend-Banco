@@ -7,11 +7,6 @@ export const createBenefit = async (req, res) => {
 
         const { nameBenefit, descriptionBenefit, stock, price } = req.body;
 
-        if (!nameBenefit || !descriptionBenefit || stock == null || price == null) {
-
-            return res.status(400).json({ error: 'All fields are required' });
-        }
-
         const benefit = new Benefit({ nameBenefit, descriptionBenefit, stock, price });
 
         const newBenefit = await benefit.save();
