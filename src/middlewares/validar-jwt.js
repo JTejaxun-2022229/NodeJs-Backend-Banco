@@ -1,5 +1,7 @@
-import jwt from 'jsonwebtoken';
 import { request, response } from 'express';
+import jwt from 'jsonwebtoken';
+import User from '../user/user.model.js'
+import Admin from '../admin/admin.model.js'
 
 export const validarJWT = async (req = request, res = response, next) => {
 
@@ -24,7 +26,7 @@ export const validarJWT = async (req = request, res = response, next) => {
     } catch (e) {
 
         console.log(e);
-        
+
         res.status(401).json({
 
             msg: "This token is not valid"
@@ -34,3 +36,43 @@ export const validarJWT = async (req = request, res = response, next) => {
     return next()
 
 }
+
+export const compareUser = async (id, token, res) => {
+
+    try {
+        const decodedToken = jwt.verify(token, process.env.SECRETPRIVATEKEY);
+        const jwtId = decodedToken.uid;
+
+        const user = await User.findById(jwtId);
+
+        if (!user || !user.status) {
+            return false;
+        }
+
+        return user._id.toString() === id;
+
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+};
+
+export const compareAdmin = async (id, token, res) => {
+
+    try {
+        const decodedToken = jwt.verify(token, process.env.SECRETPRIVATEKEY);
+        const jwtId = decodedToken.uid;
+
+        const admin = await Admin.findById(jwtId);
+
+        if (!admin || !admin.status) {
+            return false;
+        }
+
+        return admin._id.toString() === id;
+
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+};

@@ -2,6 +2,7 @@ import Credit from "./credit.model.js";
 import User from "../user/user.model.js"
 
 export const CreditPost = async (req, res) => {
+    
     //Pedimos que en el body vengan estas respuestas
     const { balance, description } = req.body;
     //En el validar-jwt Ya que al momento de un logueo se crea el token, para por el jwt que es donde lo obtiene la siguiente linea

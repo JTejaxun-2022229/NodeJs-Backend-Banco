@@ -20,9 +20,6 @@ import transferRoutes from "../src/transfer/transfer.routes.js"
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
 
-import userRoute from '../src/user/user.routes.js';
-import authRoute from '../src/auth/auth.routes.js';
-
 class Server {
 
     constructor() {

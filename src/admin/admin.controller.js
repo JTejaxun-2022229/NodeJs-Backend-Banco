@@ -3,8 +3,8 @@ import bcryptjs from "bcryptjs";
 import Admin from "./admin.model.js";
 
 export const postAdmin = async (req, res) => {
-    const { email, password } = req.body;
-    const admin = new Admin({ email, password });
+    const { name, DPI, email, password, phone, address } = req.body;
+    const admin = new Admin({ name, DPI, email, password, phone, address });
 
     try {
         const salt = bcryptjs.genSaltSync();
@@ -15,6 +15,7 @@ export const postAdmin = async (req, res) => {
         res.status(201).json({
             admin
         });
+
     } catch (error) {
         console.error('Error creating admin:', error);
         res.status(500).json({
