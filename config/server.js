@@ -76,8 +76,12 @@ class Server {
 
             if (!admin) {
                 const AdminCreate = {
+                    name: "Fernando",
+                    DPI: "1234567891011",
                     email: adminEmail,
                     password: adminPassword,
+                    phone: "12345678",
+                    address: "Ciudad de Guatemala"
                 };
 
                 const saltAdmin = bcryptjs.genSaltSync();
