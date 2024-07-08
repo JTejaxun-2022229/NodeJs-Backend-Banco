@@ -20,9 +20,6 @@ import transferRoutes from "../src/transfer/transfer.routes.js"
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
 
-import userRoute from '../src/user/user.routes.js';
-import authRoute from '../src/auth/auth.routes.js';
-
 class Server {
 
     constructor() {
@@ -79,8 +76,12 @@ class Server {
 
             if (!admin) {
                 const AdminCreate = {
+                    name: "Fernando",
+                    DPI: "1234567891011",
                     email: adminEmail,
                     password: adminPassword,
+                    phone: "12345678",
+                    address: "Ciudad de Guatemala"
                 };
 
                 const saltAdmin = bcryptjs.genSaltSync();

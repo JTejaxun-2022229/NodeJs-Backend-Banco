@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const FavoriteSchema = mongoose.Schema({
+    
     idUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

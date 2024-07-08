@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Quetzalito Collection",
     "collectionId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
-    "dateExported": "2024-06-11T22:32:51.565Z",
+    "dateExported": "2024-06-19T23:12:16.616Z",
     "version": "1.2",
     "folders": [
         {
@@ -44,11 +44,11 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-06-11T19:23:50.116Z",
-            "modified": "2024-06-11T19:35:53.639Z",
+            "modified": "2024-06-19T21:42:23.020Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\": \"Pedro Rodríguez\",\n  \"username\": \"pedro202\",\n  \"DPI\": \"4455667788990\",\n  \"address\": \"2020 Avenida Quinta\",\n  \"phone\": 555202303,\n  \"email\": \"pedro@example.com\",\n  \"password\": \"password202\",\n  \"workPlace\": \"Healthcare Center\",\n  \"salary\": 65000,\n  \"balance\": 3000\n}",
+                "raw": "{\n  \"name\": \"Pedro Rodríguez\",\n  \"username\": \"pedrito\",\n  \"DPI\": \"4455689906778\",\n  \"address\": \"2020 Avenida Quinta\",\n  \"phone\": 555202303,\n  \"email\": \"pedro@gmail.com\",\n  \"password\": \"qwerty\",\n  \"workPlace\": \"Healthcare Center\",\n  \"salary\": 65000,\n  \"balance\": 3000\n}",
                 "form": []
             }
         },
@@ -61,11 +61,11 @@
             "method": "GET",
             "sortNum": 30000,
             "created": "2024-06-11T19:36:18.552Z",
-            "modified": "2024-06-11T19:44:22.110Z",
+            "modified": "2024-06-19T20:56:21.304Z",
             "headers": [
                 {
                     "name": "authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjY4YTcxOTgyOTY2NDM3MzA4Y2Y1YzkiLCJlbWFpbCI6InBlZHJvQGV4YW1wbGUuY29tIiwiYWNjb3VudFR5cGUiOiJ1c2VyIiwiaWF0IjoxNzE4MTM0OTcwLCJleHAiOjE3MTgxNTI5NzB9.4hshRhuJPicYcU_jWxxa_LmfcPkJ25q7-XgQnaMUdk8"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczNDQ2NDRmZmRiMTk4NWUxZDM4NzciLCJlbWFpbCI6Im1pY2hhZWxicm93bkBleGFtcGxlLmNvbSIsImFjY291bnRUeXBlIjoiYWRtaW4iLCJpYXQiOjE3MTg4MzA1NTcsImV4cCI6MTcxODg0ODU1N30.Z0Vw5IAixb8f-hsF3dZoptZYq8Y2R8zC8TXKuQM3Q5U"
                 }
             ]
         },
@@ -78,11 +78,11 @@
             "method": "POST",
             "sortNum": 40000,
             "created": "2024-06-11T19:37:28.779Z",
-            "modified": "2024-06-11T19:42:50.656Z",
+            "modified": "2024-06-19T21:42:49.371Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"pedro@example.com\",\n  \"password\": \"password202\"\n}",
+                "raw": "{\n  \"email\": \"pedro@gmail.com\",\n  \"password\": \"qwerty\"\n}",
                 "form": []
             }
         },
@@ -155,7 +155,70 @@
             "created": "2024-06-11T22:12:53.327Z",
             "modified": "2024-06-11T22:17:43.525Z",
             "headers": []
+        },
+        {
+            "_id": "565588c1-77b2-4168-8b5a-6777ae99aac1",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "faac67e9-7eab-4135-8ed9-3c2b0ae28498",
+            "name": "create admin",
+            "url": "http://localhost:4000/quetzalito/v1/admin",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-06-19T20:44:40.415Z",
+            "modified": "2024-06-19T20:49:40.866Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Michael Brown\",\n  \"DPI\": \"4567890123456\",\n  \"email\": \"michaelbrown@example.com\",\n  \"password\": \"qwerty\",\n  \"phone\": \"+1765432109\",\n  \"address\": \"789 Elm Street, Somewhereville\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a2dea857-765d-4218-b7fc-aaee73816466",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "faac67e9-7eab-4135-8ed9-3c2b0ae28498",
+            "name": "get admins",
+            "url": "http://localhost:4000/quetzalito/v1/admin",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-06-19T20:54:20.615Z",
+            "modified": "2024-06-19T20:54:26.676Z",
+            "headers": []
+        },
+        {
+            "_id": "6cfb6cd8-d74a-4a21-be7a-4530ee1d5eef",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "5abe9e88-e905-40f5-a522-cdcbcaf8f2c7",
+            "name": "update user",
+            "url": "http://localhost:4000/quetzalito/v1/user/updateUser/667350bed21a613ff59b787b",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2024-06-19T21:28:26.163Z",
+            "modified": "2024-06-19T21:56:39.817Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczNTBiZWQyMWE2MTNmZjU5Yjc4N2IiLCJlbWFpbCI6InBlZHJvQGdtYWlsLmNvbSIsImFjY291bnRUeXBlIjoidXNlciIsImlhdCI6MTcxODgzNDE4MCwiZXhwIjoxNzE4ODUyMTgwfQ.WFqQmwNammDgS0X76CdLW6FV-qU_rbhFEU-96esTyF4"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"address\": \"2024 Quinta Avenida\",\n  \"phone\": 55227303\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2992b07a-df99-4bc1-8def-8c5111628a76",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "5abe9e88-e905-40f5-a522-cdcbcaf8f2c7",
+            "name": "delete user",
+            "url": "",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-06-19T21:28:33.773Z",
+            "modified": "2024-06-19T21:28:33.773Z",
+            "headers": []
         }
     ],
-    "ref": "SEXcLESV4JHb6uZkPnP3gCzLQFArnzFOFTp2bvWx7xrJV3Vu768eI6nOtFx4Ub_VhwR13yz36gXH2w7n0VTPqw"
+    "ref": "SEXcLESV4JHb6uZkPnP3gBr6-oAxtBfoB4USGIvcAkH2-MNMVU6iDAsjrvP67XjdQZBZIesUmD8UGyM53wnoGw"
 }

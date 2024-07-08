@@ -1,6 +1,7 @@
+import { response } from 'express'
 import bcryptjs from 'bcryptjs';
 import User from './user.model.js'
-import { response } from 'express'
+import { compareUser, compareAdmin } from '../middlewares/validar-jwt.js';
 
 export const userPost = async (req, res) => {
     console.log('userPost');
@@ -63,10 +64,19 @@ export const getUserEmail = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const { email, currentPassword, name, username, address, phone, workPlace, salary } = req.body;
 
     try {
-        const user = await User.findOne({ email });
+
+        const { id } = req.params;
+        /*const token = req.header('authorization');
+
+        const match = await compareUser(id, token);
+
+        if (!match) {
+            return res.status(401).json({ msg: "This user is not yours, you can not modify" });
+        }*/
+
+        const user = await User.findOne({ id });
         if (!user) {
             return res.status(404).json({
                 msg: 'El correo electrónico que ingresaste no existe en la base de datos'
@@ -88,6 +98,7 @@ export const updateUser = async (req, res) => {
             msg: 'Usuario actualizado con éxito',
             user: updatedUser
         });
+        
     } catch (error) {
         console.error('Error al actualizar el usuario:', error);
         res.status(500).json({
@@ -97,6 +108,16 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
+
+    const { id } = req.params;
+    const token = req.header('authorization');
+
+    const match = await compareUser(id, token);
+
+    if (!match) {
+        return res.status(401).json({ msg: "This user is not yours, you can not modify" });
+    }
+
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
