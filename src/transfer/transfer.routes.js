@@ -17,7 +17,7 @@ router.post('/trasnfer',
         validarJWT
     ], createTransfer)
 
-    router.get('//:emisorId', getTransfersByEmisorId)
+router.get('/:emisorId', getTransfersByEmisorId)
 
 router.put('/:transferId',
     [
