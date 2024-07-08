@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer } from "./transfer.controller.js";
+import { createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer, getTransfersByEmisorId } from "./transfer.controller.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router()
@@ -16,6 +16,8 @@ router.post('/trasnfer',
     [
         validarJWT
     ], createTransfer)
+
+    router.get('//:emisorId', getTransfersByEmisorId)
 
 router.put('/:transferId',
     [

@@ -30,18 +30,28 @@ export const getTransfers = async (req, res) => {
     }
 };
 
-export const getTransferById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const transfer = await Transfer.findById(id);
-        if (!transfer) {
-            return res.status(404).send('Transfer not found');
+    export const getTransferById = async (req, res) => {
+        const { id } = req.params;
+        try {
+            const transfer = await Transfer.findById(id);
+            if (!transfer) {
+                return res.status(404).send('Transfer not found');
+            }
+            res.status(200).json(transfer);
+        } catch (error) {
+            res.status(500).send('Error fetching transfer');
         }
-        res.status(200).json(transfer);
-    } catch (error) {
-        res.status(500).send('Error fetching transfer');
-    }
-};
+    };
+
+    export const getTransfersByEmisorId = async (req, res) => {
+        const { emisorId } = req.params;
+        try {
+            const transfers = await Transfer.find({ emisor: emisorId });
+            res.status(200).json(transfers);
+        } catch (error) {
+            res.status(500).send('Error fetching transfers');
+        }
+    };
 
 export const updateTransfer = async (req, res) => {
     const { id } = req.params;
