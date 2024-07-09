@@ -16,6 +16,7 @@ import creditRouter from "../src/credit/credit.routes.js"
 import benefitRoutes from "../src/benefit/benefit.routes.js"
 import purchaseRoutes from "../src/purchase/purchase.routes.js"
 import transferRoutes from "../src/transfer/transfer.routes.js"
+import conversionsRoutes from '../src/conversions/conversions.routes.js'
 
 // si van a usar un path para una entidad que sea de esta manera
 //  '/quetzalito/v1/{su entidad en singular}'
@@ -35,6 +36,7 @@ class Server {
         this.benefitPath = '/quetzalito/v1/benefit';
         this.purchasePath = '/quetzalito/v1/purchase';
         this.transferPath = '/quetzalito/v1/transfer'
+        this.convertPath = '/quetzalito/v1/convert'
 
         this.middlewares()
         this.conectarDB()
@@ -65,6 +67,7 @@ class Server {
         this.app.use(this.benefitPath, benefitRoutes)
         this.app.use(this.purchasePath, purchaseRoutes)
         this.app.use(this.transferPath, transferRoutes)
+        this.app.use(this.convertPath, conversionsRoutes)
     }
 
     async createAdminIfNotExists() {
