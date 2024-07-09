@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Quetzalito Collection",
     "collectionId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
-    "dateExported": "2024-07-09T20:54:28.816Z",
+    "dateExported": "2024-07-09T23:05:52.519Z",
     "version": "1.2",
     "folders": [
         {
@@ -39,6 +39,27 @@
             "containerId": "",
             "created": "2024-07-09T18:58:48.769Z",
             "sortNum": 50000
+        },
+        {
+            "_id": "0eecec49-517a-479d-b248-edf5c1d368a8",
+            "name": "credit collection",
+            "containerId": "",
+            "created": "2024-07-09T21:47:14.307Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "1be075e0-cd44-437a-907f-24ce4adc6dd7",
+            "name": "purchase collection",
+            "containerId": "",
+            "created": "2024-07-09T22:32:54.887Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "42d1dfae-c825-4805-9ec2-0e56d5083665",
+            "name": "favorite collection",
+            "containerId": "",
+            "created": "2024-07-09T22:33:14.403Z",
+            "sortNum": 80000
         }
     ],
     "requests": [
@@ -290,7 +311,24 @@
             "created": "2024-07-09T20:44:56.655Z",
             "modified": "2024-07-09T20:52:28.057Z",
             "headers": []
+        },
+        {
+            "_id": "f4dcf2c7-8ed8-4220-a5e9-3cbeff05b954",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "0eecec49-517a-479d-b248-edf5c1d368a8",
+            "name": "create credit ",
+            "url": "http://localhost:4000/quetzalito/v1/credit/requestCredit",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2024-07-09T22:34:02.315Z",
+            "modified": "2024-07-09T22:36:59.399Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"userAccount\": 5278413754,\n    \"amount\": 1000,\n    \"description\": \"Credit request for new purchase\"\n}",
+                "form": []
+            }
         }
     ],
-    "ref": "SEXcLESV4JHb6uZkPnP3gE-0OvWYi_LaMZ6igk96voGD0CqXwN08dulrhF5lqx_pexAwofzuj5hU_JxsYAWQiQ"
+    "ref": "SEXcLESV4JHb6uZkPnP3gIb1apovGPUEtJM-Q6PWRr_YmqFKI-yeXNxzCRGSrrkg5FKDZj_t_iqH2wBv6o0_lQ"
 }

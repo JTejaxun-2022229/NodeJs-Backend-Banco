@@ -1,71 +1,183 @@
 import Credit from "./credit.model.js";
 import User from "../user/user.model.js"
 
-export const CreditPost = async (req, res) => {
-    
-    //Pedimos que en el body vengan estas respuestas
-    const { balance, description } = req.body;
-    //En el validar-jwt Ya que al momento de un logueo se crea el token, para por el jwt que es donde lo obtiene la siguiente linea
-    const client = req.user;
+export const createCredit = async (req, res) => {
 
-    console.log(client)
-   //Buscamos el cliente para obtener su id para almacenarlo
-    const clientVerified = await User.findOne({ email: client.email })
-    console.log("----------------------------------------------------------------------------")
-    const CreditExist = await Credit.findById({_id : clientVerified._id})
-        console.log(CreditExist);
-        if (CreditExist) {
-            res.status(400).json({
-                msg: `The user ${clientVerified.username} already has a credit modo diablo >:)`
-            })
-        }
+    const { userAccount, amount, description } = req.body;
+
     try {
-        //Mandamos todos los datos a  con la estructura del model0
-        const creditRegister = new Credit ({ 
-            idUser: clientVerified._id, //Se guarda el id de usuario de tipo objeto
-            balance, 
-            date : new Date(), 
-            description ,
+
+        const user = await User.findOne({ account: userAccount });
+        if (!user) {
+            return res.status(404).json({
+                msg: 'User account not found'
             });
-            // se guardan el la base de datos
-            await creditRegister.save();
+        }
 
-            console.log(creditRegister.Date)
-            res.status(201).json({
-                msg: 'El crédito fue solicitado exitosamente',
-                creditRegister,
-            })
-    } catch (e) {
+        const newCredit = new Credit({
+            userAccount: user._id,
+            amount,
+            description
+        });
+
+        await newCredit.save();
+
+        res.status(201).json(newCredit);
+    } catch (error) {
+
         res.status(500).json({
-            msg: 'No fue posible solicitar un credito comuniquese con su agencia'
-        })
+            msg: 'Server error',
+            error
+        });
     }
-}
+};
 
+export const getCredits = async (req, res) => {
 
-// Funcion para Obtener los creditos esperando a ser aprobados
-export const getCreditAll = async(req, res) =>{
     try {
-        const getCredits = await Credit.find({estado: true});
-        res.json({
-            getCredits
-        })
-    } catch (error) {
-        res.status(400).json({
-            msg: 'No hay creditos disponibles a aprobar'
-        })
-    }
-}
 
-export const getCreditAllfalse = async(req, res) =>{
-    try {
-        const getCreditAllfalse = await Credit.find({estado: false});
+        const credits = await Credit.find().populate('userAccount', 'account');
+        const creditCount = credits.length;
+
+        const result = credits.map(credit => ({
+            account: credit.userAccount.account,
+            amount: credit.amount,
+            description: credit.description,
+            date: credit.date,
+            status: credit.status
+        }));
+
         res.json({
-            getCreditAllfalse
-        })
+            totalCredits: creditCount,
+            credits: result
+        });
     } catch (error) {
-        res.status(400).json({
-            msg: 'No hay creditos disponibles a aprobar'
-        })
+
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
     }
-}
+};
+
+export const getCreditsByAccount = async (req, res) => {
+
+    const { account } = req.params;
+    
+    try {
+
+        const user = await User.findOne({ account });
+        if (!user) {
+            return res.status(404).json({
+                msg: 'User account not found'
+            });
+        }
+
+        const credits = await Credit.find({ userAccount: user._id }).populate('userAccount', 'account');
+        const creditCount = credits.length;
+
+        const result = credits.map(credit => ({
+            account: credit.userAccount.account,
+            amount: credit.amount,
+            description: credit.description,
+            date: credit.date,
+            status: credit.status
+        }));
+
+        res.json({
+            totalCredits: creditCount,
+            credits: result
+        });
+    } catch (error) {
+
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
+    }
+};
+
+export const getPendingCredits = async (req, res) => {
+
+    try {
+
+        const credits = await Credit.find({ status: "pending" }).populate('userAccount', 'account');
+        const creditCount = credits.length;
+
+        const result = credits.map(credit => ({
+            account: credit.userAccount.account,
+            amount: credit.amount,
+            description: credit.description,
+            date: credit.date,
+            status: credit.status
+        }));
+
+        res.json({
+            totalCredits: creditCount,
+            credits: result
+        });
+    } catch (error) {
+
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
+    }
+};
+
+export const getAcceptedCredits = async (req, res) => {
+
+    try {
+
+        const credits = await Credit.find({ status: "accepted" }).populate('userAccount', 'account');
+        const creditCount = credits.length;
+
+        const result = credits.map(credit => ({
+            account: credit.userAccount.account,
+            amount: credit.amount,
+            description: credit.description,
+            date: credit.date,
+            status: credit.status
+        }));
+
+        res.json({
+            totalCredits: creditCount,
+            credits: result
+        });
+    } catch (error) {
+
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
+    }
+};
+
+export const getDeniedCredits = async (req, res) => {
+
+    try {
+
+        const credits = await Credit.find({ status: "denied" }).populate('userAccount', 'account');
+        const creditCount = credits.length;
+
+        const result = credits.map(credit => ({
+            account: credit.userAccount.account,
+            amount: credit.amount,
+            description: credit.description,
+            date: credit.date,
+            status: credit.status
+        }));
+
+        res.json({
+            totalCredits: creditCount,
+            credits: result
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
+    }
+};
+

@@ -161,7 +161,6 @@ export const revertTransfer = async (req, res) => {
         res.status(200).json({ message: 'Transfer reverted successfully', transfer });
     } catch (error) {
 
-        console.log(error);
         res.status(500).json({ message: 'Error reverting transfer', error });
     }
 };
