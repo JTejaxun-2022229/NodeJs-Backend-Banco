@@ -1,33 +1,32 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTransfer, getTransfers, getTransferById, updateTransfer, deleteTransfer, getTransfersByEmisorId } from "./transfer.controller.js";
-import { validarJWT } from "../middlewares/validar-jwt.js";
+import { createTransfer, getTransfers, getTransfersByEmisor, getTransfersByReceptor, revertTransfer } from "./transfer.controller.js";
 
 const router = Router()
 
-router.get('/', getTransfers)
+router.post(
+    '/',
+    createTransfer
+)
 
-router.get('/:transferId',
-    [
-        check('transferId', 'The transfer ID is necesary').not().isEmpty()
-    ], getTransferById)
+router.get(
+    '/',
+    getTransfers
+)
 
-router.post('/trasnfer',
-    [
-        validarJWT
-    ], createTransfer)
+router.get(
+    '/send/:userId',
+    getTransfersByEmisor
+);
 
-router.get('/:emisorId', getTransfersByEmisorId)
+router.get(
+    '/received/:userId',
+    getTransfersByReceptor
+);
 
-router.put('/:transferId',
-    [
-        check('transferUpdate', 'The transfer ID is necesary').not().isEmpty()
-    ], updateTransfer)
-
-router.delete('/:trasnferId',
-    [
-        validarJWT,
-        check('transferDelete', 'The transfer ID is necesary').not().isEmpty()
-    ], deleteTransfer)
+router.put(
+    '/:transferId',
+    revertTransfer
+);
 
 export default router 
