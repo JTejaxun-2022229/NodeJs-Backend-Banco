@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Quetzalito Collection",
     "collectionId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
-    "dateExported": "2024-06-19T23:12:16.616Z",
+    "dateExported": "2024-07-09T23:05:52.519Z",
     "version": "1.2",
     "folders": [
         {
@@ -32,6 +32,34 @@
             "containerId": "",
             "created": "2024-06-11T20:29:19.262Z",
             "sortNum": 40000
+        },
+        {
+            "_id": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "transfer collection",
+            "containerId": "",
+            "created": "2024-07-09T18:58:48.769Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "0eecec49-517a-479d-b248-edf5c1d368a8",
+            "name": "credit collection",
+            "containerId": "",
+            "created": "2024-07-09T21:47:14.307Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "1be075e0-cd44-437a-907f-24ce4adc6dd7",
+            "name": "purchase collection",
+            "containerId": "",
+            "created": "2024-07-09T22:32:54.887Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "42d1dfae-c825-4805-9ec2-0e56d5083665",
+            "name": "favorite collection",
+            "containerId": "",
+            "created": "2024-07-09T22:33:14.403Z",
+            "sortNum": 80000
         }
     ],
     "requests": [
@@ -218,7 +246,89 @@
             "created": "2024-06-19T21:28:33.773Z",
             "modified": "2024-06-19T21:28:33.773Z",
             "headers": []
+        },
+        {
+            "_id": "6c11a870-2b8e-4177-82f5-57ee23567e6f",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "create transfer",
+            "url": "http://localhost:4000/quetzalito/v1/transfer",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2024-07-09T18:59:04.284Z",
+            "modified": "2024-07-09T20:44:36.414Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"emisor\": 5278413754,\n  \"amount\": 500,\n  \"receptor\": 7657905232,\n  \"description\": \"Payment for services\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a3795f55-9343-4583-8412-2316f51ba42f",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "get tranfers",
+            "url": "http://localhost:4000/quetzalito/v1/transfer",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-07-09T19:57:12.438Z",
+            "modified": "2024-07-09T19:57:16.134Z",
+            "headers": []
+        },
+        {
+            "_id": "44c9b778-5519-4920-b9be-5d322ecf2af5",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "get transfers by emisor",
+            "url": "http://localhost:4000/quetzalito/v1/transfer/send/665f73ee038b85f53d2f9c1c",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2024-07-09T19:57:50.888Z",
+            "modified": "2024-07-09T20:23:42.401Z",
+            "headers": []
+        },
+        {
+            "_id": "cc319b5d-b04b-465c-82ee-fcf130846300",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "get transfers by receptor",
+            "url": "http://localhost:4000/quetzalito/v1/transfer/received/665f73ee038b85f53d2f9c1c",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2024-07-09T20:23:25.149Z",
+            "modified": "2024-07-09T20:23:35.143Z",
+            "headers": []
+        },
+        {
+            "_id": "ea7fb068-7184-498c-bb83-223e410d150a",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "45aefbf9-911f-489c-a89b-737d16f56233",
+            "name": "revert transfer",
+            "url": "http://localhost:4000/quetzalito/v1/transfer/668da2ef39911504b6c25fa0",
+            "method": "PUT",
+            "sortNum": 170000,
+            "created": "2024-07-09T20:44:56.655Z",
+            "modified": "2024-07-09T20:52:28.057Z",
+            "headers": []
+        },
+        {
+            "_id": "f4dcf2c7-8ed8-4220-a5e9-3cbeff05b954",
+            "colId": "a05e4e5b-a0dd-476f-8324-43d01398796f",
+            "containerId": "0eecec49-517a-479d-b248-edf5c1d368a8",
+            "name": "create credit ",
+            "url": "http://localhost:4000/quetzalito/v1/credit/requestCredit",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2024-07-09T22:34:02.315Z",
+            "modified": "2024-07-09T22:36:59.399Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"userAccount\": 5278413754,\n    \"amount\": 1000,\n    \"description\": \"Credit request for new purchase\"\n}",
+                "form": []
+            }
         }
     ],
-    "ref": "SEXcLESV4JHb6uZkPnP3gBr6-oAxtBfoB4USGIvcAkH2-MNMVU6iDAsjrvP67XjdQZBZIesUmD8UGyM53wnoGw"
+    "ref": "SEXcLESV4JHb6uZkPnP3gIb1apovGPUEtJM-Q6PWRr_YmqFKI-yeXNxzCRGSrrkg5FKDZj_t_iqH2wBv6o0_lQ"
 }

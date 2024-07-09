@@ -1,21 +1,41 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { CreditPost, getCreditAll, getCreditAllfalse } from "./credit.controller.js";
-import { validarJWT } from "../middlewares/validar-jwt.js";
+import { createCredit, getAcceptedCredits, getCredits, getDeniedCredits, getPendingCredits, getCreditsByAccount } from "./credit.controller.js";
 
 const router = Router();
 
 router.post(
-    "/addCredit",
+    "/requestCredit",
     [
-        //Necesario colocar validation-jwt
-        validarJWT,
-        check("balance", "El balance is mandadory").not().isEmpty(),
+        check("amount", "El balance is mandadory").not().isEmpty(),
         check("description", "La description is mandaroty").not().isEmpty(),
-    ], CreditPost
+    ],
+    createCredit
 );
 
-router.get('/', getCreditAll)
-router.get('/false', getCreditAllfalse)
+router.get(
+    '/credits',
+    getCredits
+);
+
+router.get(
+    '/credits/:account',
+    getCreditsByAccount
+);
+
+router.get(
+    '/credits/pending', 
+    getPendingCredits
+);
+
+router.get(
+    '/credits/accepted', 
+    getAcceptedCredits
+);
+
+router.get(
+    '/credits/denied', 
+    getDeniedCredits
+);
 
 export default router;
