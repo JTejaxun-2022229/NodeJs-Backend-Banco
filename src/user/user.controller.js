@@ -64,33 +64,22 @@ export const getUserEmail = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-
     try {
-
         const { id } = req.params;
-        /*const token = req.header('authorization');
+        console.log(id);
 
-        const match = await compareUser(id, token);
+        const user = await User.findOne({ _id: id });
+        console.log(user);
 
-        if (!match) {
-            return res.status(401).json({ msg: "This user is not yours, you can not modify" });
-        }*/
-
-        const user = await User.findOne({ id });
         if (!user) {
             return res.status(404).json({
-                msg: 'El correo electrónico que ingresaste no existe en la base de datos'
+                msg: 'Este usuario no existe en la base de datos'
             });
         }
 
-        const validPassword = bcryptjs.compareSync(currentPassword, user.password);
-        if (!validPassword) {
-            return res.status(400).json({
-                msg: 'Clave incorrecta'
-            });
-        }
+        const { name, username, workPlace, address, phone, email, salary, balance } = req.body;
 
-        const updateFields = { name, username, address, phone, workPlace, salary };
+        const updateFields = { name, username, workPlace, address, phone, email, salary, balance };
 
         const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true });
 
@@ -98,7 +87,7 @@ export const updateUser = async (req, res) => {
             msg: 'Usuario actualizado con éxito',
             user: updatedUser
         });
-        
+
     } catch (error) {
         console.error('Error al actualizar el usuario:', error);
         res.status(500).json({
@@ -106,6 +95,7 @@ export const updateUser = async (req, res) => {
         });
     }
 };
+
 
 export const deleteUser = async (req, res) => {
 

@@ -31,7 +31,7 @@ router.post(
 
 
 router.get(
-  '/', [validarJWT,], getUsers
+  '/', getUsers
 )
 
 router.get(
@@ -42,9 +42,6 @@ router.get(
 
 router.put(
   "/updateUser/:id",
-  [
-    validarJWT,
-  ],
   updateUser
 );
 
