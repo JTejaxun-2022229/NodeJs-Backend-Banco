@@ -21,17 +21,21 @@ export const userPost = async (req, res) => {
 }
 
 export const getUsers = async (req, res) => {
-    try {
-        const users = await User.find({});
+    const { start, end } = req.query;
+    const query = { status: true };
 
-        if (users.length === 0) {
-            return res.status(404).json({ error: 'No users found' });
-        }
+    try {
+        const [total, users] = await Promise.all([
+            User.countDocuments(query),
+            User.find(query)
+                .skip(Number(start))
+                .limit(Number(end))
+        ]);
 
         res.status(200).json({
+            total,
             users
         });
-
     } catch (error) {
         console.error('Error fetching users:', error);
         res.status(500).json({
@@ -66,10 +70,10 @@ export const getUserEmail = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
+        console.log("Request params:", req.params);
+        console.log("Request body:", req.body);
 
         const user = await User.findOne({ _id: id });
-        console.log(user);
 
         if (!user) {
             return res.status(404).json({
@@ -97,42 +101,31 @@ export const updateUser = async (req, res) => {
 };
 
 
+
 export const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
 
-    const { id } = req.params;
-    const token = req.header('authorization');
+        if (!user) {
+            return res.status(404).json({
+                msg: 'Este usuario no existe en la base de datos'
+            });
+        }
 
-    const match = await compareUser(id, token);
+        const updateFields = { status: false };
 
-    if (!match) {
-        return res.status(401).json({ msg: "This user is not yours, you can not modify" });
-    }
+        const deleteUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true });
 
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+        res.status(200).json({
+            msg: 'Usuario Eliminado',
+            user: deleteUser
+        });
 
-    if (!user) {
-        return res.status(400).json({
-            msg: 'The email you entered does not exist in the database'
+    } catch (error) {
+        console.error('Error al actualizar el usuario:', error);
+        res.status(500).json({
+            msg: 'Error interno del servidor'
         });
     }
-
-    const salt = bcryptjs.genSaltSync();
-    const validPassword = bcryptjs.compareSync(password, user.password);
-
-
-    if (!validPassword) {
-        return res.status(400).json({
-            msg: 'Clave incorrecta'
-        });
-    }
-
-    user.state = false;
-
-    const usuario = await User.findByIdAndUpdate(user.id, user, { new: true });
-
-    res.status(200).json({
-        msg: 'This user is eliminated',
-        usuario
-    });
 }

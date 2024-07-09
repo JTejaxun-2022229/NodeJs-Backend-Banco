@@ -46,13 +46,7 @@ router.put(
 );
 
 router.delete(
-  '/',
-  [
-    check('email', 'Do you want to delete this email?').isEmail(),
-    check('password', 'Please enter the correct password to confirm the action'),
-    validarCampos,
-    validarJWT,
-  ],
+  '/:id',
   deleteUser
 )
 
