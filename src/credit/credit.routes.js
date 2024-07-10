@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createCredit, getAcceptedCredits, getCredits, getDeniedCredits, getPendingCredits, getCreditsByAccount } from "./credit.controller.js";
+import { createCredit, getAcceptedCredits, getCredits, getDeniedCredits, getPendingCredits, getCreditsByAccount,authorizeCredit } from "./credit.controller.js";
 
 const router = Router();
 
@@ -12,6 +12,14 @@ router.post(
     ],
     createCredit
 );
+
+router.post(
+    "/authorize",
+    [
+        check("creditId").not().isEmpty(),
+        check("status").not().isEmpty(),
+    ],authorizeCredit
+)
 
 router.get(
     '/credits',

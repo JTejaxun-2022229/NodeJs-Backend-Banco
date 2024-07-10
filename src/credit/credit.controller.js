@@ -32,6 +32,44 @@ export const createCredit = async (req, res) => {
     }
 };
 
+export const authorizeCredit = async (req, res) => {
+    const { creditId, status } = req.body;
+
+    if (!['accepted', 'denied'].includes(status)) {
+        return res.status(400).json({
+            msg: 'Invalid status. Status must be either "accepted" or "denied".'
+        });
+    }
+
+    try {
+        const credit = await Credit.findById(creditId).populate('userAccount');
+        if (!credit) {
+            return res.status(404).json({
+                msg: 'Credit not found'
+            });
+        }
+
+        if (status === 'accepted' && credit.status === 'pending') {
+            const user = await User.findById(credit.userAccount._id);
+            user.balance += credit.amount;
+            await user.save();
+        }
+
+        credit.status = status;
+        await credit.save();
+
+        res.json({
+            msg: `Credit has been ${status}`,
+            credit
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg: 'Server error',
+            error
+        });
+    }
+};
+
 export const getCredits = async (req, res) => {
 
     try {
