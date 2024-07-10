@@ -1,7 +1,9 @@
-import { response } from 'express'
 import bcryptjs from 'bcryptjs';
-import User from './user.model.js'
-import { compareUser, compareAdmin } from '../middlewares/validar-jwt.js';
+import User from './user.model.js';
+import mongoose from 'mongoose';
+import Transfer from '../transfer/transfer.model.js';
+import Credit from '../credit/credit.model.js';
+import Purchase from '../purchase/purchase.model.js';
 
 export const userPost = async (req, res) => {
     console.log('userPost');
@@ -13,12 +15,19 @@ export const userPost = async (req, res) => {
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password, salt);
 
-    await user.save();
+    try {
+        await user.save();
 
-    res.status(200).json({
-        user
-    })
-}
+        res.status(200).json({
+            user
+        });
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+};
 
 export const getUsers = async (req, res) => {
     const { start, end } = req.query;
@@ -41,6 +50,86 @@ export const getUsers = async (req, res) => {
         res.status(500).json({
             error: 'Internal server error'
         });
+    }
+};
+
+export const getUsersOrder = async (req, res) => {
+    const query = { status: true };
+    const sortOrder = req.query.sort === 'asc' ? 1 : -1;
+
+    try {
+        const usersWithCounts = await User.aggregate([
+            { $match: query },
+            {
+                $lookup: {
+                    from: 'credits',
+                    localField: '_id',
+                    foreignField: 'userAccount',
+                    as: 'credits'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'purchases',
+                    localField: '_id',
+                    foreignField: 'user',
+                    as: 'purchases'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'transfers',
+                    localField: '_id',
+                    foreignField: 'emisor',
+                    as: 'transfers'
+                }
+            },
+            {
+                $addFields: {
+                    creditCount: { $size: '$credits' },
+                    purchaseCount: { $size: '$purchases' },
+                    transferCount: { $size: '$transfers' },
+                    totalCount: { $sum: [{ $size: '$credits' }, { $size: '$purchases' }, { $size: '$transfers' }] }
+                }
+            },
+            { $sort: { totalCount: sortOrder } },
+            {
+                $project: {
+                    credits: 0,
+                    purchases: 0,
+                    transfers: 0
+                }
+            }
+        ]);
+
+        const totalUsers = await User.countDocuments(query);
+
+        res.status(200).json({
+            total: totalUsers,
+            users: usersWithCounts
+        });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+};
+
+export const getMovements = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const credits = await Credit.find({ userAccount: id }).sort({ date: -1 }).limit(5).exec();
+        const purchases = await Purchase.find({ user: id }).sort({ date: -1 }).limit(5).exec();
+        const transfers = await Transfer.find({ emisor: id }).sort({ date: -1 }).limit(5).exec();
+
+        const movements = [...credits, ...purchases, ...transfers].sort((a, b) => b.date - a.date).slice(0, 5);
+
+        res.status(200).json({ movements });
+    } catch (error) {
+        console.error('Error fetching movements:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -100,8 +189,6 @@ export const updateUser = async (req, res) => {
     }
 };
 
-
-
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -128,4 +215,4 @@ export const deleteUser = async (req, res) => {
             msg: 'Error interno del servidor'
         });
     }
-}
+};

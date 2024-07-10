@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { getUsers, getUserEmail, userPost, updateUser, deleteUser } from './user.controller.js';
+import { getUsers, getUserEmail, userPost, updateUser, deleteUser, getUsersOrder, getMovements} from './user.controller.js';
 import { existeDPI, existeEmail, existNoAccount, existUsername } from '../helpers/db-validators.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
@@ -39,6 +39,17 @@ router.get(
   [validarJWT,],
   getUserEmail
 );
+
+router.get(
+  "/orderByMovements",
+  getUsersOrder
+)
+
+
+router.get(
+  "/getMovements/:id",
+  getMovements
+)
 
 router.put(
   "/updateUser/:id",

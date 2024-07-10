@@ -47,18 +47,19 @@ export const getFavoriteById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const favorite = await Favorite.findOne({ _id: id });
+        const favorites = await Favorite.find({ idUser: id });
 
         res.status(200).json({
-            favorite
+            favorites
         });
     } catch (error) {
-        console.error('Error fetching favorite by ID:', error);
+        console.error('Error fetching favorites by ID:', error);
         res.status(500).json({
             error: 'Internal server error'
         });
     }
 };
+
 
 export const getFavoriteByDPI = async (req, res) => {
     const { DPI } = req.params;

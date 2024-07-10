@@ -7,7 +7,7 @@ export const createCredit = async (req, res) => {
 
     try {
 
-        const user = await User.findOne({ account: userAccount });
+        const user = await User.findOne({ _id: userAccount });
         if (!user) {
             return res.status(404).json({
                 msg: 'User account not found'
@@ -66,7 +66,7 @@ export const getCreditsByAccount = async (req, res) => {
     
     try {
 
-        const user = await User.findOne({ account });
+        const user = await User.findOne({ _id: account });
         if (!user) {
             return res.status(404).json({
                 msg: 'User account not found'

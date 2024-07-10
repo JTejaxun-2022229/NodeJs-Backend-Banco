@@ -40,7 +40,6 @@ router.get(
     "/:id",
     [
         check("id", "This is not a valid ID").isMongoId(),
-        check("id").custom(existsFavoriteById),
         validarCampos,
     ],
     getFavoriteById
