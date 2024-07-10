@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTransfer, getTransfers, getTransfersByEmisor, getTransfersByReceptor, revertTransfer } from "./transfer.controller.js";
+import { createTransfer, getTransfers, getTransfersByEmisor, getTransfersByReceptor, revertTransfer, getTransfersByEmisorId } from "./transfer.controller.js";
 
 const router = Router()
 
@@ -13,6 +13,8 @@ router.get(
     '/',
     getTransfers
 )
+
+router.get('/:emisorId', getTransfersByEmisorId)
 
 router.get(
     '/send/:userId',

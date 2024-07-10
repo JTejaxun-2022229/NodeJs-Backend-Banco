@@ -70,6 +70,16 @@ export const getTransfers = async (req, res) => {
     }
 };
 
+export const getTransfersByEmisorId = async (req, res) => {
+    const { emisorId } = req.params;
+    try {
+        const transfers = await Transfer.find({ emisor: emisorId });
+        res.status(200).json(transfers);
+    } catch (error) {
+        res.status(500).send('Error fetching transfers');
+    }
+};
+
 
 export const getTransfersByEmisor = async (req, res) => {
 
