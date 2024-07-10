@@ -16,8 +16,8 @@ router.post(
 router.post(
     "/authorize",
     [
-        check("creditId").not().isEmpty(),
-        check("status").not().isEmpty(),
+        check("creditId", "El id is mandadory").not().isEmpty(),
+        check("status","El status is mandadory").not().isEmpty(),
     ],authorizeCredit
 )
 
@@ -32,17 +32,17 @@ router.get(
 );
 
 router.get(
-    '/credits/pending', 
+    '/pending',
     getPendingCredits
 );
 
 router.get(
-    '/credits/accepted', 
+    '/accepted',
     getAcceptedCredits
 );
 
 router.get(
-    '/credits/denied', 
+    '/denied',
     getDeniedCredits
 );
 

@@ -33,7 +33,7 @@ const PurchaseSchema = mongoose.Schema({
         default: Date.now
     },
     delivered: {
-        
+
         type: Boolean,
         default: false
     },

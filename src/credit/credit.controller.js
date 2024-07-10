@@ -78,6 +78,7 @@ export const getCredits = async (req, res) => {
         const creditCount = credits.length;
 
         const result = credits.map(credit => ({
+            id: credit._id,
             account: credit.userAccount.account,
             amount: credit.amount,
             description: credit.description,
@@ -143,6 +144,7 @@ export const getPendingCredits = async (req, res) => {
         const creditCount = credits.length;
 
         const result = credits.map(credit => ({
+            id: credit._id,
             account: credit.userAccount.account,
             amount: credit.amount,
             description: credit.description,
@@ -171,6 +173,7 @@ export const getAcceptedCredits = async (req, res) => {
         const creditCount = credits.length;
 
         const result = credits.map(credit => ({
+            id: credit._id,
             account: credit.userAccount.account,
             amount: credit.amount,
             description: credit.description,
@@ -199,6 +202,7 @@ export const getDeniedCredits = async (req, res) => {
         const creditCount = credits.length;
 
         const result = credits.map(credit => ({
+            id: credit._id,
             account: credit.userAccount.account,
             amount: credit.amount,
             description: credit.description,

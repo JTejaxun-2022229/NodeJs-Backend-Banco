@@ -7,11 +7,11 @@ const CreditSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    //Balance empieza siempre con 1000 ya que nunca se podra pedir menor a 1000 , al momento de solicitar creditos
+    //amount empieza siempre con 1000 ya que nunca se podra pedir menor a 1000 , al momento de solicitar creditos
     amount: {
         type: Number,
     },
-    // Formato mm/m/aaaa
+
     description: {
         type: String
     },
